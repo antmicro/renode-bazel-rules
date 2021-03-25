@@ -1,4 +1,6 @@
-load(":robot.bzl", "renode_test")
+package(default_visibility = ["//visibility:public"])
+
+load("//renode:renode.bzl", "renode_test")
 
 renode_test(
     name = "nxp-k64f-test",
