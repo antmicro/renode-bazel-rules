@@ -7,8 +7,8 @@ Currently, it is required that Renode is installed in the host operating system 
 
 ## Running an example
 
-An example that tests an ELF binary with Zephyr OS compiled for the [NXP FRDM-K64F](https://www.nxp.com/design/development-boards/freedom-development-boards/mcu-boards/freedom-development-platform-for-kinetis-k64-k63-and-k24-mcus:FRDM-K64F) platform is provided in `examples/nxp`.
+An example that tests an ELF binary with Zephyr OS compiled for the [NXP FRDM-K64F](https://www.nxp.com/design/development-boards/freedom-development-boards/mcu-boards/freedom-development-platform-for-kinetis-k64-k63-and-k24-mcus:FRDM-K64F) platform is provided in `examples/nxp-k64f`.
 
-In order to run this test, issue `bazel test //examples/nxp:nxp-k64f-test`.
+In order to run this test, issue `bazel test //examples/nxp-k64f:nxp-k64f-test`.
 
 After the test has completed (irrespectively of its status), you'll find the resulting artifacts (logs, report, etc) in the `bazel-testlogs/examples/nxp/nxp-k64f-test/test.outputs` directory in the `outputs.zip` file.
