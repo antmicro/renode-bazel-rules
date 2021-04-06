@@ -16,6 +16,7 @@ jobs:
           sudo apt -qqy update && sudo apt -qqy install gtk-sharp2
           wget -O /tmp/renode.deb https://github.com/renode/renode/releases/download/v${{ env.RENODE_VERSION }}/renode_${{ env.RENODE_VERSION }}_amd64.deb
           sudo dpkg -i /tmp/renode.deb
+          sudo pip install -r /opt/renode/tests/requirements.txt
 
       - name: Run example test
         run: |
