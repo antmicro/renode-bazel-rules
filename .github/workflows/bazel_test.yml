@@ -1,0 +1,14 @@
+name: Renode Bazel Rules test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run example test
+        run: |
+          bazel test //examples/nxp-k64f:nxp-k64f-test
