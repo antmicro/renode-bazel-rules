@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       RENODE_VERSION: "1.12.0"
+      RENODE_NIGHTLY_COMMIT: "20210415git39ecc7c"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -14,9 +15,17 @@ jobs:
       - name: Install Renode
         run: |
           sudo apt -qqy update && sudo apt -qqy install gtk-sharp2
-          wget -O /tmp/renode.deb https://github.com/renode/renode/releases/download/v${{ env.RENODE_VERSION }}/renode_${{ env.RENODE_VERSION }}_amd64.deb
+
+          if [[ -z "${RENODE_NIGHTLY_COMMIT}" ]]; then
+            export URL=https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_VERSION}_amd64.deb
+          else
+            export URL=https://dl.antmicro.com/projects/renode/builds/renode_${RENODE_VERSION}+${RENODE_NIGHTLY_COMMIT}_amd64.deb
+          fi
+
+          wget -O /tmp/renode.deb $URL 
           sudo dpkg -i /tmp/renode.deb
           sudo pip install -r /opt/renode/tests/requirements.txt
+          mkdir -p ~/.config/renode
 
       - name: Run example test
         run: |
