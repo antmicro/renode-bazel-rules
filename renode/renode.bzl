@@ -1,5 +1,5 @@
 def _impl(ctx):
-  script = "RENODE_CI_MODE=YES renode-test --variable elf_file:`pwd`/{elf_file} -r $TEST_UNDECLARED_OUTPUTS_DIR {robot_file}".format(
+  script = "RENODE_CI_MODE=YES renode-test --renode-config $TEST_UNDECLARED_OUTPUTS_DIR/renode_config --variable elf_file:`pwd`/{elf_file} -r $TEST_UNDECLARED_OUTPUTS_DIR {robot_file}".format(
       elf_file = ctx.file.binary.path, robot_file = ctx.file.robot.short_path
       )
 
