@@ -1,6 +1,9 @@
 workspace(name = 'rules_renode')
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+load("//renode:deps.bzl", "renode_register_toolchain")
+
+renode_register_toolchain()
 
 http_file(
     name = "nxp_k64f--zephyr_basic_uart.elf",
