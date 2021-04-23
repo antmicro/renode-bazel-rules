@@ -18,8 +18,8 @@ def _find_tool(ctx, name):
     return cmd
 
 def _renode_toolchain_impl(ctx):
-  r = _find_tool("renode")
-  rt = _find_tool("test.sh")
+  r = _find_tool(ctx, "renode")
+  rt = _find_tool(ctx, "test.sh")
 
   return [platform_common.ToolchainInfo(
       renode_runtime = RenodeRuntimeInfo(
