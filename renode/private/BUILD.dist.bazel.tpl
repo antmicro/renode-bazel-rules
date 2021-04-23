@@ -1,7 +1,7 @@
 # This template is used by perl_download to generate a build file for
 # a downloaded Renode distribution.
 
-load("//renode:toolchain.bzl", "renode_toolchain")
+load("@rules_renode//renode:toolchain.bzl", "renode_toolchain")
 package(default_visibility = ["//visibility:public"])
 
 # tools contains executable files that are part of the toolchain.
@@ -22,5 +22,5 @@ renode_toolchain(
 toolchain(
     name = "toolchain",
     toolchain = ":toolchain_impl",
-    toolchain_type = "//:toolchain_type",
+    toolchain_type = "@rules_renode//:toolchain_type",
 )

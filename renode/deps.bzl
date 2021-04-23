@@ -12,5 +12,5 @@ def renode_register_toolchain():
   )
 
   native.register_toolchains(
-      "@renode_linux_amd64//renode:toolchain"
+      "@renode_linux_amd64//:toolchain"
   )
