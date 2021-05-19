@@ -39,4 +39,15 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_python/releases/download/0.2.0/rules_python-0.2.0.tar.gz",
 )
 
-register_toolchains("//renode:my_py_toolchain")
+load("@rules_python//python:pip.bzl", "pip_install")
+
+pip_install(
+    extra_pip_args = ["-v"],
+    name = "renode_robot_deps",
+    requirements = "@renode_linux_amd64//tests:requirements.txt",
+    python_interpreter_target = "@python_interpreter//:python_bin",
+    quiet = False,
+)
+
+register_toolchains("@rules_renode//renode:my_py_toolchain")
+

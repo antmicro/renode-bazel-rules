@@ -1,4 +1,6 @@
 load("@rules_python//python:defs.bzl", "py_runtime", "py_runtime_pair")
+load("@renode_robot_deps//:requirements.bzl", "requirement")
+package(default_visibility = ["//visibility:public"]) 
 
 py_runtime(
     name = "python3_runtime",

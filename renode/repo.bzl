@@ -12,6 +12,8 @@ def _renode_download_impl(ctx):
       ctx.attr._build_tpl,
       )
 
+  ctx.execute(["touch", "tests/BUILD"])
+
 renode_download = repository_rule(
     implementation = _renode_download_impl,
     attrs = {
