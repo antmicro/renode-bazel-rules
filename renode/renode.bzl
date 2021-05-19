@@ -1,10 +1,20 @@
+load("@renode_robot_deps//:requirements.bzl", "all_requirements")
+
 def _impl(ctx):
   toolchain = ctx.toolchains["@rules_renode//:toolchain_type"].renode_runtime
   toolchain_files = depset(toolchain.runtime)
 
   py_toolchain = ctx.toolchains["@bazel_tools//tools/python:toolchain_type"].py3_runtime
 
-  script = "export PATH=`pwd`/external/python_interpreter/bazel_install/bin:$PATH && printenv && python3 --version && RENODE_CI_MODE=YES {} --renode-config $TEST_UNDECLARED_OUTPUTS_DIR/renode_config --variable elf_file:`pwd`/{elf_file} -r $TEST_UNDECLARED_OUTPUTS_DIR {robot_file}".format(
+  modules = ["`pwd`/external/{}".format(m.replace("@", "").replace("//","/")) for m in all_requirements]
+
+  pythonpath = ":".join(modules)
+
+  for f in modules:
+    print(f)
+
+  script = "export PYTHONPATH={} && export PATH=`pwd`/external/python_interpreter/bazel_install/bin:$PATH && printenv && python3 --version && RENODE_CI_MODE=YES {} --renode-config $TEST_UNDECLARED_OUTPUTS_DIR/renode_config --variable elf_file:`pwd`/{elf_file} -r $TEST_UNDECLARED_OUTPUTS_DIR {robot_file}".format(
+      pythonpath,
       toolchain.renode_test.path,
       elf_file = ctx.file.binary.path, robot_file = ctx.file.robot.short_path
       )
@@ -17,7 +27,7 @@ def _impl(ctx):
   )
 
   runfiles = ctx.runfiles(
-      files = toolchain.runtime+[ctx.file.robot, ctx.file.binary], 
+      files = toolchain.runtime+[ctx.file.robot, ctx.file.binary]+ctx.files.pip_reqs, 
       transitive_files=py_toolchain.files
   )
 
@@ -30,6 +40,7 @@ renode_test = rule(
     attrs = {
         "robot": attr.label(allow_single_file = True, mandatory = True),
         "binary": attr.label(allow_single_file = True, mandatory = True),
+        "pip_reqs": attr.label_list(default = all_requirements, allow_files=True)
     },
     toolchains = [
         "@rules_renode//:toolchain_type",
