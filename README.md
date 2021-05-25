@@ -4,7 +4,8 @@ Copyright (c) 2021 [Antmicro](https://www.antmicro.com/)
 
 This repository contains rules for running Renode tests inside Bazel and provides use case examples.
 
-Currently, it is required that Renode is installed in the host operating system (if you're not sure how to do that, follow the instructions from the [documentation](https://renode.readthedocs.io/en/latest/introduction/installing.html))
+In order to guarantee hermeticity of tests, the ``renode_test`` rule uses Renode portable and Python 3.8 (together with dependencies) as a hermetic toolchain.
+The implication of this is that it's not necessary to install any of the aforementioned pieces of software on the host machine in order to run tests.
 
 ## Running an example
 
