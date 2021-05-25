@@ -13,15 +13,10 @@ def _impl(ctx):
 
   pythonpath = ":".join(modules)
 
-  for f in modules:
-    print(f)
-
   script = """\
 export PYTHONNOUSERSITE=1 && \\
 export PYTHONPATH={} && \\
 export PATH=`pwd`/external/python_interpreter/bazel_install/bin:$PATH && \\
-python3 -c 'import sys; print(sys.path)' && \\
-printenv && python3 --version && \\
 RENODE_CI_MODE=YES {} \\
   --renode-config $TEST_UNDECLARED_OUTPUTS_DIR/renode_config \\
   --variable elf_file:`pwd`/{elf_file} \\

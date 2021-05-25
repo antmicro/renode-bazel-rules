@@ -5,9 +5,9 @@ renode_download = _renode_download
 def renode_register_toolchain():
   renode_download(
       name = "renode_linux_amd64",
-      sha256 = "968aa3c2f7dbb0bddb2ef7046eb48c7557c2399829c8d4eb2cb2cff7d7f94b44",
+      sha256 = "d4793c211644c06b3014f761c0c302a271c974223cc8fe21e23280cee171a780", 
       urls = [
-          "https://dl.antmicro.com/projects/renode/builds/renode-1.12.0+20210415git39ecc7c.linux-portable.tar.gz"
+          "https://dl.antmicro.com/projects/renode/builds/renode-1.12.0+reduced_req.linux-portable.tar.gz"
       ],
   )
 

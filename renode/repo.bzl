@@ -4,15 +4,15 @@ def _renode_download_impl(ctx):
   ctx.download_and_extract(
       ctx.attr.urls,
       sha256 = ctx.attr.sha256,
-      stripPrefix = "renode_1.12.0+20210415git39ecc7c_portable"
+      stripPrefix = "renode_1.12.0+20210524git1084a6b5_portable"
   )
+
+  ctx.execute(["cp", "tests/requirements.txt", "requirements.txt"])
 
   ctx.template(
       "BUILD.bazel",
       ctx.attr._build_tpl,
       )
-
-  ctx.execute(["touch", "tests/BUILD"])
 
 renode_download = repository_rule(
     implementation = _renode_download_impl,

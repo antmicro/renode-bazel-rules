@@ -44,7 +44,7 @@ load("@rules_python//python:pip.bzl", "pip_install")
 pip_install(
     extra_pip_args = ["-v"],
     name = "renode_robot_deps",
-    requirements = "@renode_linux_amd64//tests:requirements.txt",
+    requirements = "@renode_linux_amd64//:requirements.txt",
     python_interpreter_target = "@python_interpreter//:python_bin",
     quiet = False,
 )
