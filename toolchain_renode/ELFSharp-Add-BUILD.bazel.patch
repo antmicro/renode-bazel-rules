@@ -1,0 +1,104 @@
+From 7bc59c7fed9b917855c871f4f6615ca783e3c165 Mon Sep 17 00:00:00 2001
+From: Kamil Rakoczy <krakoczy@antmicro.com>
+Date: Thu, 5 Oct 2023 16:29:44 +0200
+Subject: [PATCH] ELFSharp: Add BUILD.bazel
+
+Signed-off-by: Kamil Rakoczy <krakoczy@antmicro.com>
+---
+ lib/ELFSharp/ELFSharp/BUILD.bazel | 84 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
+ create mode 100644 lib/ELFSharp/ELFSharp/BUILD.bazel
+
+diff --git a/lib/ELFSharp/ELFSharp/BUILD.bazel b/lib/ELFSharp/ELFSharp/BUILD.bazel
+new file mode 100644
+index 0000000..510ba0e
+--- /dev/null
++++ b/lib/ELFSharp/ELFSharp/BUILD.bazel
+@@ -0,0 +1,84 @@
++load(
++    "@rules_dotnet//dotnet:defs.bzl",
++    "csharp_library",
++)
++
++package(default_visibility = ["//visibility:public"])
++
++csharp_library(
++    name = "ELFSharp",
++    srcs = [
++     "AssemblyInfo.cs",
++     "ELF/Class.cs",
++     "ELF/Consts.cs",
++     "ELF/ELF.cs",
++     "ELF/ELFReader.cs",
++     "ELF/Endianess.cs",
++     "ELF/FileType.cs",
++     "ELF/IELF.cs",
++     "ELF/Machine.cs",
++     "ELF/Sections/INoteSection.cs",
++     "ELF/Sections/IProgBitsSection.cs",
++     "ELF/Sections/ISection.cs",
++     "ELF/Sections/IStringTable.cs",
++     "ELF/Sections/ISymbolEntry.cs",
++     "ELF/Sections/ISymbolTable.cs",
++     "ELF/Sections/NoteData.cs",
++     "ELF/Sections/NoteSection.cs",
++     "ELF/Sections/ProgBitsSection.cs",
++     "ELF/Sections/Section.cs",
++     "ELF/Sections/SectionFlags.cs",
++     "ELF/Sections/SectionHeader.cs",
++     "ELF/Sections/SectionType.cs",
++     "ELF/Sections/SpecialSectionIndex.cs",
++     "ELF/Sections/SpecialSectionType.cs",
++     "ELF/Sections/StringTable.cs",
++     "ELF/Sections/SymbolBinding.cs",
++     "ELF/Sections/SymbolEntry.cs",
++     "ELF/Sections/SymbolTable.cs",
++     "ELF/Sections/SymbolType.cs",
++     "ELF/Segments/ISegment.cs",
++     "ELF/Segments/Segment.cs",
++     "ELF/Segments/SegmentFlags.cs",
++     "ELF/Segments/SegmentType.cs",
++     "ELF/Utilities.cs",
++     "MachO/Command.cs",
++     "MachO/CommandType.cs",
++     "MachO/FileType.cs",
++     "MachO/Machine.cs",
++     "MachO/MachO.cs",
++     "MachO/MachOReader.cs",
++     "MachO/MachOResult.cs",
++     "MachO/Symbol.cs",
++     "MachO/SymbolTable.cs",
++     "MiscUtil/BigEndianBitConverter.cs",
++     "MiscUtil/EndianBinaryReader.cs",
++     "MiscUtil/EndianBinaryWriter.cs",
++     "MiscUtil/EndianBitConverter.cs",
++     "MiscUtil/Endianness.cs",
++     "MiscUtil/LittleEndianBitConverter.cs",
++     "MiscUtil/NonClosingStreamWrapper.cs",
++     "MiscUtil/Streams.cs",
++     "PE/ImageExportDirectory.cs",
++     "PE/ImageFileHeader.cs",
++     "PE/ImageSectionHeader.cs",
++     "PE/NamesTable.cs",
++     "PE/PE.cs",
++     "PE/PEReader.cs",
++     "UImage/Architecture.cs",
++     "UImage/CompressionType.cs",
++     "UImage/ImageDataResult.cs",
++     "UImage/ImageType.cs",
++     "UImage/OS.cs",
++     "UImage/UImage.cs",
++     "UImage/UImageReader.cs",
++     "UImage/UImageResult.cs",
++    ],
++    internals_visible_to = ["lib_elfsharp"],
++    target_frameworks = ["net6.0"],
++    targeting_packs = [
++        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
++    ],
++    deps = [],
++    defines = ["NET"],
++)
+-- 
+2.42.0
+

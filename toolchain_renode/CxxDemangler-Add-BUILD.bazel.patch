@@ -1,0 +1,112 @@
+From a78f46c4efe64431f94ea1a510c1b65eb4dd69f6 Mon Sep 17 00:00:00 2001
+From: Kamil Rakoczy <krakoczy@antmicro.com>
+Date: Thu, 5 Oct 2023 16:27:09 +0200
+Subject: [PATCH] CxxDemangler: Add BUILD.bazel
+
+Signed-off-by: Kamil Rakoczy <krakoczy@antmicro.com>
+---
+ lib/CxxDemangler/CxxDemangler/BUILD.bazel                | 78 +++++++++++++++++++++++++
+ lib/CxxDemangler/CxxDemangler/Properties/AssemblyInfo.cs |  2 +-
+ 2 files changed, 79 insertions(+), 1 deletion(-)
+ create mode 100644 lib/CxxDemangler/CxxDemangler/BUILD.bazel
+
+diff --git a/lib/CxxDemangler/CxxDemangler/BUILD.bazel b/lib/CxxDemangler/CxxDemangler/BUILD.bazel
+new file mode 100644
+index 0000000..a218ef8
+--- /dev/null
++++ b/lib/CxxDemangler/CxxDemangler/BUILD.bazel
+@@ -0,0 +1,78 @@
++load(
++    "@rules_dotnet//dotnet:defs.bzl",
++    "csharp_library",
++)
++
++package(default_visibility = ["//visibility:public"])
++
++csharp_library(
++    name = "CxxDemangler",
++    srcs = [
++     "CxxDemangler.cs",
++     "DemanglingContext.cs",
++     "IDemangleAsInner.cs",
++     "IParsingResult.cs",
++     "Parsers/ArrayType.cs",
++     "Parsers/BareFunctionType.cs",
++     "Parsers/BaseUnresolvedName.cs",
++     "Parsers/BuiltinType.cs",
++     "Parsers/CallOffset.cs",
++     "Parsers/ClassEnumType.cs",
++     "Parsers/ClosureTypeName.cs",
++     "Parsers/CtorDtorName.cs",
++     "Parsers/CvQualifiers.cs",
++     "Parsers/DataMemberPrefix.cs",
++     "Parsers/Decltype.cs",
++     "Parsers/DestructorName.cs",
++     "Parsers/DictionaryParser.cs",
++     "Parsers/DictionaryValueAttribute.cs",
++     "Parsers/Discriminator.cs",
++     "Parsers/Encoding.cs",
++     "Parsers/Expression.cs",
++     "Parsers/ExprPrimary.cs",
++     "Parsers/FunctionParam.cs",
++     "Parsers/FunctionType.cs",
++     "Parsers/Initializer.cs",
++     "Parsers/LambdaSig.cs",
++     "Parsers/LocalName.cs",
++     "Parsers/MangledName.cs",
++     "Parsers/Name.cs",
++     "Parsers/NestedName.cs",
++     "Parsers/OperatorName.cs",
++     "Parsers/PointerToMemberType.cs",
++     "Parsers/Prefix.cs",
++     "Parsers/RefQualifier.cs",
++     "Parsers/SimpleId.cs",
++     "Parsers/SimpleOperatorName.cs",
++     "Parsers/SourceName.cs",
++     "Parsers/SpecialName.cs",
++     "Parsers/StandardBuiltinType.cs",
++     "Parsers/Substitution.cs",
++     "Parsers/TemplateArg.cs",
++     "Parsers/TemplateArgs.cs",
++     "Parsers/TemplateParam.cs",
++     "Parsers/TemplateTemplateParam.cs",
++     "Parsers/Type.cs",
++     "Parsers/UnnamedTypeName.cs",
++     "Parsers/UnqualifiedName.cs",
++     "Parsers/UnresolvedName.cs",
++     "Parsers/UnresolvedQualifierLevel.cs",
++     "Parsers/UnresolvedType.cs",
++     "Parsers/UnscopedName.cs",
++     "Parsers/UnscopedTemplateName.cs",
++     "Parsers/WellKnownComponent.cs",
++     "ParsingContext.cs",
++     "Properties/AssemblyInfo.cs",
++     "SimpleStringParser.cs",
++     "SimpleStringWriter.cs",
++     "SubstitutionTable.cs",
++    ],
++    internals_visible_to = ["lib_cxxdemangler"],
++    target_frameworks = ["net6.0"],
++    targeting_packs = [
++        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
++    ],
++    deps = [],
++    defines = ["NET"],
++)
++
+diff --git a/lib/CxxDemangler/CxxDemangler/Properties/AssemblyInfo.cs b/lib/CxxDemangler/CxxDemangler/Properties/AssemblyInfo.cs
+index 14c9c94..683d093 100644
+--- a/lib/CxxDemangler/CxxDemangler/Properties/AssemblyInfo.cs
++++ b/lib/CxxDemangler/CxxDemangler/Properties/AssemblyInfo.cs
+@@ -17,7 +17,7 @@ using System.Runtime.CompilerServices;
+ // The form "{Major}.{Minor}.*" will automatically update the build and revision,
+ // and "{Major}.{Minor}.{Build}.*" will update just the revision.
+ 
+-[assembly: AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0")]
+ 
+ // The following attributes are used to specify the signing key for the assembly, 
+ // if desired. See the Mono documentation for more information about signing.
+-- 
+2.42.0
+

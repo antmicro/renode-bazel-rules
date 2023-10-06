@@ -1,0 +1,65 @@
+From 86765fd4612613c77309c7f865285a50b7b9a3bc Mon Sep 17 00:00:00 2001
+From: Kamil Rakoczy <krakoczy@antmicro.com>
+Date: Fri, 6 Oct 2023 08:54:31 +0200
+Subject: [PATCH] termsharp: Add lib/termsharp/BUILD.bazel
+
+Signed-off-by: Kamil Rakoczy <krakoczy@antmicro.com>
+---
+ lib/termsharp/BUILD.bazel | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+ create mode 100644 lib/termsharp/BUILD.bazel
+
+diff --git a/lib/termsharp/BUILD.bazel b/lib/termsharp/BUILD.bazel
+new file mode 100644
+index 0000000..5e6629b
+--- /dev/null
++++ b/lib/termsharp/BUILD.bazel
+@@ -0,0 +1,45 @@
++load(
++    "@rules_dotnet//dotnet:defs.bzl",
++    "csharp_library",
++)
++
++package(default_visibility = ["//visibility:public"])
++
++csharp_library(
++    name = "TermSharp",
++    srcs = [
++     "LayoutParameters.cs",
++     "ILayoutParameters.cs",
++     "Terminal.cs",
++     "SelectionMode.cs",
++     "SelectionDirection.cs",
++     "Cursor.cs",
++     "Rows/MonospaceTextRow.cs",
++     "Vt100/IDecoderLogger.cs",
++     "Vt100/ConsoleDecoderLogger.cs",
++     "Vt100/Decoder.cs",
++     "Vt100/Encoder.cs",
++     "Vt100/DecoderCommands.cs",
++     "Vt100/ControlByte.cs",
++     "Vt100/Vt100ITermFileEscapeCodeHandler.cs",
++     "Misc/SimpleCache.cs",
++     "Misc/Utilities.cs",
++     "Rows/IRow.cs",
++     "Misc/IntegerPosition.cs",
++     "Misc/ClipboardData.cs",
++     "Vt100/ByteUtf8Decoder.cs",
++     "Misc/IGenerationAware.cs",
++     "Rows/ImageRow.cs",
++     "Rows/RowUtils.cs",
++    ],
++    internals_visible_to = ["lib_termsharp"],
++    target_frameworks = ["net6.0"],
++    targeting_packs = [
++        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
++    ],
++    deps = [
++        "//lib/xwt/Xwt:Xwt",
++    ],
++    defines = ["NET"],
++)
++
+-- 
+2.42.0
+

@@ -1,0 +1,53 @@
+From 6ac4952ac696093c88b2de7e817d148fcebbcc5d Mon Sep 17 00:00:00 2001
+From: Kamil Rakoczy <krakoczy@antmicro.com>
+Date: Thu, 5 Oct 2023 17:03:26 +0200
+Subject: [PATCH] libtftp: Add BUILD.bazel
+
+Signed-off-by: Kamil Rakoczy <krakoczy@antmicro.com>
+---
+ lib/InpliTftpServer/libtftp/BUILD.bazel | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+ create mode 100644 lib/InpliTftpServer/libtftp/BUILD.bazel
+
+diff --git a/lib/InpliTftpServer/libtftp/BUILD.bazel b/lib/InpliTftpServer/libtftp/BUILD.bazel
+new file mode 100644
+index 0000000..4158c37
+--- /dev/null
++++ b/lib/InpliTftpServer/libtftp/BUILD.bazel
+@@ -0,0 +1,33 @@
++load(
++    "@rules_dotnet//dotnet:defs.bzl",
++    "csharp_library",
++)
++
++package(default_visibility = ["//visibility:public"])
++
++csharp_library(
++    name = "libtftp",
++    srcs = [
++     "ETftpErrorType.cs",
++     "ETftpLogSeverity.cs",
++     "ETftpOperationType.cs",
++     "ETftpPacketType.cs",
++     "helpers/BufferPrimitives.cs",
++     "TftpGetStreamEventArgs.cs",
++     "TftpLogEventArgs.cs",
++     "TftpRequest.cs",
++     "TftpServer.cs",
++     "TftpSession.cs",
++     "TftpTransferCompleteEventArgs.cs",
++     "TftpTransferErrorEventArgs.cs",
++    ],
++    internals_visible_to = ["lib_libtftp"],
++    target_frameworks = ["net6.0"],
++    targeting_packs = [
++        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
++    ],
++    deps = [
++    ],
++    defines = ["NET"],
++    allow_unsafe_blocks = True,
++)
+-- 
+2.42.0
+

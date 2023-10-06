@@ -22,7 +22,13 @@ load("@rules_dotnet//dotnet:rules_dotnet_nuget_packages.bzl", "rules_dotnet_nuge
 
 rules_dotnet_nuget_packages()
 
+http_archive(
+    name = "renode-resources",
+    url = "https://github.com/renode/renode-resources/archive/refs/heads/master.zip",
+    sha256 = "e7009eb80dce0b46449763465a6701d06f627a4da08f04dcf433e01121660863",
+    build_file = "@//:renode-resources.BUILD",
+)
 
-load("//toolchain_renode:defs.bzl", "install_toolchain_renode")
+load("//deps:resources.bzl", "resources")
 
-install_toolchain_renode()
+resources()

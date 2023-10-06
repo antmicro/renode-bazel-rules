@@ -1,0 +1,113 @@
+From c006660364ef3ac0fd3f571726b6bcbcc2717ef8 Mon Sep 17 00:00:00 2001
+From: Kamil Rakoczy <krakoczy@antmicro.com>
+Date: Thu, 5 Oct 2023 15:44:28 +0200
+Subject: [PATCH] Migrant: Add BUILD.bazel
+
+Signed-off-by: Kamil Rakoczy <krakoczy@antmicro.com>
+---
+ lib/Migrant/Migrant/BUILD.bazel | 93 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 93 insertions(+)
+ create mode 100644 lib/Migrant/Migrant/BUILD.bazel
+
+diff --git a/lib/Migrant/Migrant/BUILD.bazel b/lib/Migrant/Migrant/BUILD.bazel
+new file mode 100644
+index 0000000..0ca0824
+--- /dev/null
++++ b/lib/Migrant/Migrant/BUILD.bazel
+@@ -0,0 +1,93 @@
++load(
++    "@rules_dotnet//dotnet:defs.bzl",
++    "csharp_library",
++)
++
++package(default_visibility = ["//visibility:public"])
++
++csharp_library(
++    name = "Migrant",
++    srcs = [
++       "AssemblyInfo.cs",
++       "BultinSurrogates/ISurrogateRestorer.cs",
++       "BultinSurrogates/SurrogateForDictionary.cs",
++       "BultinSurrogates/SurrogateForHashSet.cs",
++       "BultinSurrogates/SurrogateForHashtable.cs",
++       "BultinSurrogates/SurrogateForISerializable.cs",
++       "BultinSurrogates/SurrogateForIXmlSerializable.cs",
++       "BultinSurrogates/SurrogateForReadOnlyCollection.cs",
++       "CollectionMetaToken.cs",
++       "ConstructorAttribute.cs",
++       "Consts.cs",
++       "Customization/Method.cs",
++       "Customization/ReferencePreservation.cs",
++       "Customization/Settings.cs",
++       "Customization/VersionToleranceLevel.cs",
++       "DeserializationResult.cs",
++       "Generators/CallPostSerializationHooksMethodGenerator.cs",
++       "Generators/CloneContentMethodGenerator.cs",
++       "Generators/CompletedGenerator.cs",
++       "Generators/CreateGenericSurrogateMethodGenerator.cs",
++       "Generators/CreateObjectGenerator.cs",
++       "Generators/DynamicMethodGenerator.cs",
++       "Generators/DynamicReadMethodGenerator.cs",
++       "Generators/DynamicWriteMethodGenerator.cs",
++       "Generators/GenerationContextBase.cs",
++       "Generators/GeneratorHelper.cs",
++       "Generators/HandleNewReferenceMethodGenerator.cs",
++       "Generators/ReaderGenerationContext.cs",
++       "Generators/ReadMethodGenerator.cs",
++       "Generators/SurrogateObjectIfNeededMethodGenerator.cs",
++       "Generators/TouchInlinedObjectGenerator.cs",
++       "Generators/WriteMethodGenerator.cs",
++       "Generators/WriteReferenceMethodGenerator.cs",
++       "Generators/WriterGenerationContext.cs",
++       "Helpers.cs",
++       "Hooks/LatePostDeserializationAttribute.cs",
++       "Hooks/LatePostSerializationAttribute.cs",
++       "Hooks/PostDeserializationAttribute.cs",
++       "Hooks/PostSerializationAttribute.cs",
++       "Hooks/PreSerializationAttribute.cs",
++       "ISpeciallySerializable.cs",
++       "ObjectIdentifier.cs",
++       "ObjectIdentifierContext.cs",
++       "ObjectReader.cs",
++       "ObjectWriter.cs",
++       "PrimitiveReader.cs",
++       "PrimitiveWriter.cs",
++       "SerializationType.cs",
++       "Serializer.cs",
++       "TransientAttribute.cs",
++       "TypeOrGenericTypeArgument.cs",
++       "Utilities/AutoResizingList.cs",
++       "Utilities/DynamicMethodProvider.cs",
++       "Utilities/IdentifiedElementsDictionary.cs",
++       "Utilities/IdentifiedElementsList.cs",
++       "Utilities/IIdentifiedElement.cs",
++       "Utilities/OneToManyMap.cs",
++       "Utilities/OneToOneMap.cs",
++       "Utilities/PeekableStream.cs",
++       "Utilities/SwapList.cs",
++       "Utilities/TypeProvider.cs",
++       "Utilities/Variable.cs",
++       "VersionTolerance/ArrayDescriptor.cs",
++       "VersionTolerance/AssemblyDescriptor.cs",
++       "VersionTolerance/FieldDescriptor.cs",
++       "VersionTolerance/FieldInfoOrEntryToOmit.cs",
++       "VersionTolerance/MethodDescriptor.cs",
++       "VersionTolerance/ModuleDescriptor.cs",
++       "VersionTolerance/StampHelpers.cs",
++       "VersionTolerance/TypeDescriptor.cs",
++       "VersionTolerance/TypeFullDescriptor.cs",
++       "VersionTolerance/TypeSimpleDescriptor.cs",
++       "VersionTolerance/VersionToleranceException.cs",
++    ],
++    internals_visible_to = ["lib_migrant"],
++    target_frameworks = ["net6.0"],
++    targeting_packs = [
++        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
++    ],
++    deps = [],
++    defines = ["NET"],
++)
++
+-- 
+2.42.0
+

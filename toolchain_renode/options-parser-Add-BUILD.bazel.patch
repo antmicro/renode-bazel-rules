@@ -1,0 +1,67 @@
+From 2666896422d4fb5f0cb4730ffa15c2572d4b5a9d Mon Sep 17 00:00:00 2001
+From: Kamil Rakoczy <krakoczy@antmicro.com>
+Date: Fri, 6 Oct 2023 08:52:46 +0200
+Subject: [PATCH] options-parser: Add lib/options-parser/BUILD.bazel
+
+Signed-off-by: Kamil Rakoczy <krakoczy@antmicro.com>
+---
+ lib/options-parser/BUILD.bazel | 47 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+ create mode 100644 lib/options-parser/BUILD.bazel
+
+diff --git a/lib/options-parser/BUILD.bazel b/lib/options-parser/BUILD.bazel
+new file mode 100644
+index 0000000..a35c782
+--- /dev/null
++++ b/lib/options-parser/BUILD.bazel
+@@ -0,0 +1,47 @@
++load(
++    "@rules_dotnet//dotnet:defs.bzl",
++    "csharp_library",
++)
++
++package(default_visibility = ["//visibility:public"])
++
++csharp_library(
++    name = "OptionsParser",
++    srcs = [
++     "Description/DelimiterAttribute.cs",
++     "Description/DescriptionAttribute.cs",
++     "Description/HideAttribute.cs",
++     "Description/NameAttribute.cs",
++     "Description/NumberOfElementsAttribute.cs",
++     "Description/PositionalArgumentAttribute.cs",
++     "Help/ApplicationInfo.cs",
++     "Help/HelpOption.cs",
++     "Parser/CommandLineOption.cs",
++     "Parser/CommandLineOptionDescriptor.cs",
++     "Parser/ElementDescriptor.cs",
++     "Parser/IFlag.cs",
++     "Parser/IParsedArgument.cs",
++     "Parser/IUnexpectedArgument.cs",
++     "Parser/OptionsParser.cs",
++     "Parser/ParseHelper.cs",
++     "Parser/ParserConfiguration.cs",
++     "Parser/PositionalArgument.cs",
++     "Parser/Token.cs",
++     "Parser/Tokenizer.cs",
++     "Parser/UnexpectedArgument.cs",
++     "Properties/AssemblyInfo.cs",
++     "Validation/DefaultValueAttribute.cs",
++     "Validation/IValidatedOptions.cs",
++     "Validation/RequiredAttribute.cs",
++     "Validation/ValidationException.cs",
++    ],
++    internals_visible_to = ["lib_optionsparser"],
++    target_frameworks = ["net6.0"],
++    targeting_packs = [
++        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
++    ],
++    deps = [
++    ],
++    defines = ["NET"],
++    allow_unsafe_blocks = True,
++)
+-- 
+2.42.0
+

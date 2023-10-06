@@ -1,0 +1,62 @@
+From 0bf18f8e27c8b661f7e6325524f8a292e2c831a5 Mon Sep 17 00:00:00 2001
+From: Kamil Rakoczy <krakoczy@antmicro.com>
+Date: Thu, 5 Oct 2023 16:20:27 +0200
+Subject: [PATCH] BigGustave: Add BUILD.bazel
+
+Signed-off-by: Kamil Rakoczy <krakoczy@antmicro.com>
+---
+ lib/BigGustave/src/BigGustave/BUILD.bazel | 42 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+ create mode 100644 lib/BigGustave/src/BigGustave/BUILD.bazel
+
+diff --git a/lib/BigGustave/src/BigGustave/BUILD.bazel b/lib/BigGustave/src/BigGustave/BUILD.bazel
+new file mode 100644
+index 0000000..0a80df3
+--- /dev/null
++++ b/lib/BigGustave/src/BigGustave/BUILD.bazel
+@@ -0,0 +1,42 @@
++load(
++    "@rules_dotnet//dotnet:defs.bzl",
++    "csharp_library",
++)
++
++package(default_visibility = ["//visibility:public"])
++
++csharp_library(
++    name = "BigGustave",
++    srcs = [
++     "Adam7.cs",
++     "Adler32Checksum.cs",
++     "ChunkHeader.cs",
++     "ColorType.cs",
++     "CompressionMethod.cs",
++     "Crc32.cs",
++     "Decoder.cs",
++     "FilterMethod.cs",
++     "FilterType.cs",
++     "HeaderValidationResult.cs",
++     "IChunkVisitor.cs",
++     "ImageHeader.cs",
++     "InterlaceMethod.cs",
++     "Palette.cs",
++     "Pixel.cs",
++     "Png.cs",
++     "PngBuilder.cs",
++     "PngOpener.cs",
++     "PngOpenerSettings.cs",
++     "PngStreamWriteHelper.cs",
++     "RawPngData.cs",
++     "StreamHelper.cs",
++    ],
++    internals_visible_to = ["lib_biggustave"],
++    target_frameworks = ["net6.0"],
++    targeting_packs = [
++        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
++    ],
++    deps = [],
++    defines = ["NET"],
++)
++
+-- 
+2.42.0
+
