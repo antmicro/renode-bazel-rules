@@ -164,7 +164,7 @@ new file mode 100644
 index 00000000..fccf1c09
 --- /dev/null
 +++ b/src/Renode/BUILD.bazel
-@@ -0,0 +1,157 @@
+@@ -0,0 +1,158 @@
 +load(
 +    "@rules_dotnet//dotnet:defs.bzl",
 +    "csharp_binary",
@@ -293,7 +293,7 @@ index 00000000..fccf1c09
 +        "//lib/bc-csharp/crypto:crypto",
 +#        "@renode-resources//:IronPython",
 +#        "@renode-resources//:IronPythonStdLib",
-+#        "@renode-resources//:IronPythonModules",
++#        "//:copy_styles_robot",
 +        "@renode-resources//:MicrosoftScripting",
 +        "@renode-resources//:MonoLinqExpressions",
 +        "@renode-resources//:MonoTextTemplating",
@@ -321,6 +321,7 @@ index 00000000..fccf1c09
 +    ],
 +    defines = ["NET"],
 +    out = "Renode",
++    winexe = True,
 +)
 -- 
 2.42.0

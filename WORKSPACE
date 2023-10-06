@@ -26,3 +26,19 @@ rules_dotnet_nuget_packages()
 load("//toolchain_renode:defs.bzl", "install_toolchain_renode")
 
 install_toolchain_renode()
+
+http_archive(
+    name = "rules_python",
+    sha256 = "778197e26c5fbeb07ac2a2c5ae405b30f6cb7ad1f5510ea6fdac03bded96cc6f",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/0.2.0/rules_python-0.2.0.tar.gz",
+)
+
+load("@rules_python//python:pip.bzl", "pip_install")
+
+pip_install(
+    extra_pip_args = ["-v"],
+    name = "renode_robot_deps",
+    requirements = "@toolchain_renode//:tests/requirements.txt",
+    python_interpreter = "python3",
+    quiet = False,
+)

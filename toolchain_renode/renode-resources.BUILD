@@ -86,3 +86,8 @@ import_dll(
     name = "MicrosoftDynamic",
     dll = "renode-resources-master/libraries/Microsoft.Dynamic.dll",
 )
+
+filegroup(
+    name = "robot-style",
+    srcs = ["renode-resources-master/styles/robot.css"],
+)

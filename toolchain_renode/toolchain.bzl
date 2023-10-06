@@ -1,12 +1,23 @@
+def _find_tool(ctx, name):
+    cmd = None
+    for f in ctx.files.runtime:
+      if f.path.endswith(name):
+            cmd = f
+            break
+    if not cmd:
+        fail("could not locate tool `%s`" % name)
+
+    return cmd
 
 def _renode_toolchain_impl(ctx):
-    r = "bazel-out/k8-fastbuild-ST-19c30ace4401/bin/external/toolchain_renode/bazelout/net6.0/Renode.dll.sh.runfiles/__main__/external/toolchain_renode/bazelout/net6.0/Renode"
-    rt = ""
+    r = _find_tool(ctx, "renode")
+    rt = _find_tool(ctx, "renode-test")
 
     return [platform_common.ToolchainInfo(
         renode_runtime = RenodeRuntimeInfo(
             renode = r,
             renode_test = rt,
+            runtime = ctx.files.runtime,
         ),
     )]
 
@@ -21,4 +32,11 @@ RenodeRuntimeInfo = provider(
 
 renode_toolchain = rule(
     implementation = _renode_toolchain_impl,
+    attrs = {
+        "runtime": attr.label_list(
+            mandatory = True,
+            allow_files = True,
+            cfg = "target",
+        ),
+    },
 )
