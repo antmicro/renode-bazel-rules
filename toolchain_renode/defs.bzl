@@ -40,3 +40,7 @@ def install_toolchain_renode():
             "@//toolchain_renode:Renode-Add-BUILD.bazel.patch",
         ],
     )
+
+    native.register_toolchains(
+	"@toolchain_renode//:toolchain"
+    )
