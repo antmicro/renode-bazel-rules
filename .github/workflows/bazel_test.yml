@@ -9,16 +9,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Temporary workaround
-        run: mkdir -p ~/.config/renode
-
-      - name: Run example test
+      - name: Build toolchain
         run: |
-          bazel test //examples/nxp-k64f:nxp-k64f-test
+          bazel build @toolchain_renode//...
 
-      - name: Upload Bazel artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ always() }}
-        with:
-          name: renode-bazel-artifacts
-          path: bazel-testlogs*/**/*
+      - name: Run renode
+        run: |
+          bazel-out/k8-fastbuild-ST-19c30ace4401/bin/external/toolchain_renode/bazelout/net6.0/Renode.dll.sh.runfiles/__main__/external/toolchain_renode/bazelout/net6.0/Renode --help
+          bazel-out/k8-fastbuild-ST-19c30ace4401/bin/external/toolchain_renode/bazelout/net6.0/Renode.dll.sh.runfiles/__main__/external/toolchain_renode/bazelout/net6.0/Renode
