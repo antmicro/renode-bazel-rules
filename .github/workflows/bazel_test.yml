@@ -13,7 +13,10 @@ jobs:
         run: |
           bazel build @toolchain_renode//...
 
-      - name: Run renode
+      - name: Display renode help
         run: |
           bazel-out/k8-fastbuild-ST-19c30ace4401/bin/external/toolchain_renode/bazelout/net6.0/Renode.dll.sh.runfiles/__main__/external/toolchain_renode/bazelout/net6.0/Renode --help
+
+      - name: Run renode
+        run: |
           bazel-out/k8-fastbuild-ST-19c30ace4401/bin/external/toolchain_renode/bazelout/net6.0/Renode.dll.sh.runfiles/__main__/external/toolchain_renode/bazelout/net6.0/Renode
