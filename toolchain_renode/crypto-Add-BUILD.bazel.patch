@@ -1952,7 +1952,7 @@ index 00000000..3777a556
 +    internals_visible_to = ["lib_crypto"],
 +    target_frameworks = ["net6.0"],
 +    targeting_packs = [
-+        "@dotnet_nuget_standard_packages//microsoft.netcore.app.ref",
++        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
 +    ],
 +    deps = [
 +    ],
