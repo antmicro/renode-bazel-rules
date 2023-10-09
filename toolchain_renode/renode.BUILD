@@ -13,6 +13,16 @@ copy(
     out = "lib/resources/styles/robot.css",
 )
 
+filegroup(
+    name = "platforms",
+    srcs = glob(["platforms/**/*"]),
+)
+
+filegroup(
+    name = "scripts",
+    srcs = glob(["scripts/**/*"]),
+)
+
 # tools contains executable files that are part of the toolchain.
 filegroup(
     name = "runtime",
@@ -21,8 +31,12 @@ filegroup(
         "renode-test",
         "tools/common.sh",
         "tests/run_tests.py",
+        "tests/tests.yaml",
+        ".renode-root",
+        "//:platforms",
+        "//:scripts",
         "//:copy_styles_robot",
-        "//src/Renode:renode",
+        "//src/Renode:publish_renode",
     ]
 )
 
