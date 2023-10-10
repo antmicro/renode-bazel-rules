@@ -24,3 +24,10 @@ jobs:
       - name: Run test
         run: |
           bazel test //examples/nxp-k64f:nxp-k64f-test
+
+      - name: Upload Bazel artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: renode-bazel-artifacts
+          path: bazel-testlogs*/**/*
