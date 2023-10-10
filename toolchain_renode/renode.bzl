@@ -8,7 +8,8 @@ def renode_test_impl(ctx):
 
     wrapper = ctx.actions.declare_file('wrapper.sh')
 
-    script = "RENODE_CI_MODE=YES {} \
+    script = "RENODE_CI_MODE=YES LD_DEBUG=all {} \
+--show-log \
 --runner net \
 --renode-config $TEST_UNDECLARED_OUTPUTS_DIR/renode_config \
 --robot-framework-remote-server-directory-prefix $(cd $(dirname $0); echo $PWD)/../../external/toolchain_renode/output/bin/ \

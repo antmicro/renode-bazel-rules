@@ -24,7 +24,9 @@ jobs:
       - name: Run test
         run: |
           # FIXME: workaroud for missing libdl from self_contained csharp binary
+          ls -lah /usr/lib/libdl.so.2
           sudo ln -s /usr/lib/libdl.so.2 /usr/lib/libdl.so
+          ls -lah /usr/lib/libdl.so
           bazel test //examples/nxp-k64f:nxp-k64f-test
 
       - name: Upload Bazel artifacts
