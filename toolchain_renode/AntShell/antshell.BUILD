@@ -1,0 +1,60 @@
+load(
+    "@rules_dotnet//dotnet:defs.bzl",
+    "csharp_library",
+)
+
+package(default_visibility = ["//visibility:public"])
+
+csharp_library(
+    name = "AntShell",
+    srcs = [
+     "AntShell/CommandEditor.cs",
+     "AntShell/CommandHistory.cs",
+     "AntShell/CommandInteraction.cs",
+     "AntShell/CommandLine.cs",
+     "AntShell/Commands/BuiltIn/ColorsCommand.cs",
+     "AntShell/Commands/BuiltIn/CommandFromHistoryCommand.cs",
+     "AntShell/Commands/BuiltIn/HelpCommand.cs",
+     "AntShell/Commands/BuiltIn/HistoryCommand.cs",
+     "AntShell/Commands/BuiltIn/QuitCommand.cs",
+     "AntShell/Commands/BuiltIn/SaveCommmand.cs",
+     "AntShell/Commands/CommandBase.cs",
+     "AntShell/Commands/ICommand.cs",
+     "AntShell/Commands/ICommandDescription.cs",
+     "AntShell/Commands/ICommandInteraction.cs",
+     "AntShell/Commands/IOperator.cs",
+     "AntShell/Commands/ISuggestionProvider.cs",
+     "AntShell/Encoding/CustomDecoderFallback.cs",
+     "AntShell/Encoding/CustomDecoderFallbackBuffer.cs",
+     "AntShell/Helpers/ControlSequence.cs",
+     "AntShell/Helpers/Helper.cs",
+     "AntShell/Helpers/Position.cs",
+     "AntShell/Helpers/SequenceValidator.cs",
+     "AntShell/ICommandHandler.cs",
+     "AntShell/Prompt.cs",
+     "AntShell/Properties/AssemblyInfo.cs",
+     "AntShell/Shell.cs",
+     "AntShell/ShellSettings.cs",
+     "AntShell/Terminal/APIOSourceConverter.cs",
+     "AntShell/Terminal/BasicTerminalEmulator.cs",
+     "AntShell/Terminal/IActiveIOSource.cs",
+     "AntShell/Terminal/IIOSource.cs",
+     "AntShell/Terminal/IOProvider.cs",
+     "AntShell/Terminal/IPassiveIOSource.cs",
+     "AntShell/Terminal/ITerminalHandler.cs",
+     "AntShell/Terminal/NavigableTerminalEmulator.cs",
+     "AntShell/Terminal/PAIOSourceConverter.cs",
+     "AntShell/Terminal/StreamIOSource.cs",
+     "AntShell/Terminal/VirtualCursor.cs",
+    ],
+    internals_visible_to = ["lib_antshell"],
+    target_frameworks = ["net6.0"],
+    targeting_packs = [
+        "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
+    ],
+    deps = [
+        "@Migrant//:Migrant",
+    ],
+    defines = ["NET"],
+)
+

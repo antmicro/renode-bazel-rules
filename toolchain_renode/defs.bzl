@@ -1,9 +1,35 @@
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("//toolchain_renode/resources:resources.bzl", "resources")
+load("//toolchain_renode/Migrant:defs.bzl", "install_migrant")
+load("//toolchain_renode/AntShell:defs.bzl", "install_antshell")
+load("//toolchain_renode/BigGustave:defs.bzl", "install_biggustave")
+load("//toolchain_renode/CxxDemangler:defs.bzl", "install_cxxdemangler")
+load("//toolchain_renode/ELFSharp:defs.bzl", "install_elfsharp")
+load("//toolchain_renode/FdtSharp:defs.bzl", "install_fdtsharp")
+load("//toolchain_renode/InpliTftpServer:defs.bzl", "install_libtftp")
+load("//toolchain_renode/PacketDotNet:defs.bzl", "install_packetdotnet")
+load("//toolchain_renode/bc-csharp:defs.bzl", "install_crypto")
+load("//toolchain_renode/options-parser:defs.bzl", "install_optionsparser")
+load("//toolchain_renode/Xwt:defs.bzl", "install_xwt")
+load("//toolchain_renode/termsharp:defs.bzl", "install_termsharp")
+load("//toolchain_renode/renode-infrastructure:defs.bzl", "install_renode_infrastructure")
 
 def install_toolchain_renode():
     resources()
+    install_migrant()
+    install_antshell()
+    install_biggustave()
+    install_cxxdemangler()
+    install_elfsharp()
+    install_fdtsharp()
+    install_libtftp()
+    install_packetdotnet()
+    install_crypto()
+    install_optionsparser()
+    install_xwt()
+    install_termsharp()
+    install_renode_infrastructure()
 
     http_archive(
 	name = "renode-resources",
@@ -15,30 +41,8 @@ def install_toolchain_renode():
     git_repository(
         name = "toolchain_renode",
         commit = "f86ac3cf1c836739184015c3a5a5166a4d898d20",
-        init_submodules	= True,
-        recursive_init_submodules = True,
         remote = "https://github.com/renode/renode",
         build_file = "@//toolchain_renode:renode.BUILD",
-        # TODO: it looks like workspace_file doesn't work?
-        # bazel doesn't load rules from this file before executing BUILD file
-        workspace_file = "@//toolchain_renode:renode.WORKSPACE",
-        patch_args = ["-p1"],
-        patches = [
-            "@//toolchain_renode:Migrant-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:AntShell-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:BigGustave-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:CxxDemangler-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:ELFSharp-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:FdtSharp-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:libtftp-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:PacketDotNet-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:crypto-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:Infrastructure-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:options-parser-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:termsharp-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:Xwt-Add-BUILD.bazel.patch",
-            "@//toolchain_renode:Renode-Add-BUILD.bazel.patch",
-        ],
     )
 
     native.register_toolchains(
