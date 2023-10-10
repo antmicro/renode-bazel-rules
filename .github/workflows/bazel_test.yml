@@ -20,3 +20,7 @@ jobs:
       - name: Run renode
         run: |
           bazel-out/k8-fastbuild-ST-19c30ace4401/bin/external/toolchain_renode/bazelout/net6.0/Renode.dll.sh.runfiles/__main__/external/toolchain_renode/bazelout/net6.0/Renode
+
+      - name: Run test
+        run: |
+          bazel test //examples/nxp-k64f:nxp-k64f-test
