@@ -25,4 +25,5 @@ def install_renode_infrastructure():
         commit = "edc0b9f89eed551f043212ed102cfb1d87b01bae",
         remote = "https://github.com/renode/renode-infrastructure",
         build_file = "//toolchain_renode/renode-infrastructure:infrastructure.BUILD",
+        recursive_init_submodules = True,
     )

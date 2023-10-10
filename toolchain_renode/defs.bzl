@@ -14,6 +14,7 @@ load("//toolchain_renode/options-parser:defs.bzl", "install_optionsparser")
 load("//toolchain_renode/Xwt:defs.bzl", "install_xwt")
 load("//toolchain_renode/termsharp:defs.bzl", "install_termsharp")
 load("//toolchain_renode/renode-infrastructure:defs.bzl", "install_renode_infrastructure")
+load("//toolchain_renode/tlib:defs.bzl", "install_tlib")
 
 def install_toolchain_renode():
     resources()
@@ -30,6 +31,7 @@ def install_toolchain_renode():
     install_xwt()
     install_termsharp()
     install_renode_infrastructure()
+    install_tlib()
 
     http_archive(
 	name = "renode-resources",

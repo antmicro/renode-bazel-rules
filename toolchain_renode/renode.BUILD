@@ -328,6 +328,9 @@ csharp_binary(
         "@resources//mono.cecil",
         "@resources//ironpython",
     ],
+    resources = [
+        "@RenodeInfrastructure//:Antmicro.Renode.translate-arm-m-le.so",
+    ],
     defines = ["NET"],
     out = "Renode",
     winexe = True,

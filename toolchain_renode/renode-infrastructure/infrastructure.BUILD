@@ -2167,3 +2167,136 @@ csharp_library(
     defines = ["NET"],
     allow_unsafe_blocks = True,
 )
+
+cc_library(
+    name = "tcg",
+    srcs = [
+        "src/Emulator/Cores/tlib/tcg/tcg.c",
+        "src/Emulator/Cores/tlib/tcg/tcg-runtime.c",
+        "src/Emulator/Cores/tlib/tcg/optimize.c",
+        "src/Emulator/Cores/tlib/tcg/additional.c",
+        "src/Emulator/Cores/tlib/tcg/host-utils.c",
+        "src/Emulator/Cores/tlib/tcg/tcg-op-gvec.c",
+        "src/Emulator/Cores/tlib/tcg/tcg-op-vec.c",
+        "src/Emulator/Cores/tlib/tcg/tcg-runtime-gvec.c",
+    ],
+    hdrs = [
+        "src/Emulator/Cores/tlib/tcg/tcg.h",
+        "src/Emulator/Cores/tlib/tcg/tcg-runtime.h",
+        "src/Emulator/Cores/tlib/tcg/additional.h",
+        "src/Emulator/Cores/tlib/tcg/host-utils.h",
+        "src/Emulator/Cores/tlib/tcg/tcg-op-gvec.h",
+        "src/Emulator/Cores/tlib/tcg/bswap.h",
+        "src/Emulator/Cores/tlib/tcg/tcg-op.h",
+        #TODO: make target as a variable
+        # there is also arm
+        "src/Emulator/Cores/tlib/tcg/i386/tcg-target.h",
+        "src/Emulator/Cores/tlib/tcg/i386/tcg-target.c",
+        "src/Emulator/Cores/tlib/tcg/tcg-memop.h",
+        "src/Emulator/Cores/tlib/tcg/tcg-opc.h",
+        "src/Emulator/Cores/tlib/tcg/tcg-gvec-desc.h",
+        "src/Emulator/Cores/tlib/include/bit_helper.h",
+        "src/Emulator/Cores/tlib/include/infrastructure.h",
+        "src/Emulator/Cores/tlib/include/osdep.h",
+        "src/Emulator/Cores/tlib/include/callbacks.h",
+        "src/Emulator/Cores/tlib/include/def-helper.h",
+    ],
+    defines = [
+        "HOST_LONG_BITS=64",
+        "TARGET_INSN_START_EXTRA_WORDS=1",
+        "TARGET_LONG_BITS=32",
+    ],
+    copts = [
+        "-fomit-frame-pointer",
+        "-O3",
+        "-fPIC",
+    ],
+    includes = [
+        "src/Emulator/Cores/tlib/tcg",
+        #TODO: make target as a variable
+        # there is also arm
+        "src/Emulator/Cores/tlib/tcg/i386",
+        "src/Emulator/Cores/tlib/include",
+    ],
+)
+
+filegroup(
+    name = "translate_sources",
+    srcs = glob([
+        "src/Emulator/Cores/tlib/*.c",
+        "src/Emulator/Cores/tlib/arch/*.c",
+        "src/Emulator/Cores/tlib/external/*.c",
+        "src/Emulator/Cores/tlib/fpu/*.c",
+        "src/Emulator/Cores/tlib/arch/arm/*.c",
+        "src/Emulator/Cores/renode/*.c",
+        "src/Emulator/Cores/renode/arm/*.c",
+    ]),
+)
+
+filegroup(
+    name = "translate_headers",
+    srcs = glob([
+        "src/Emulator/Cores/tlib/*.h",
+        "src/Emulator/Cores/tlib/arch/*.h",
+        "src/Emulator/Cores/tlib/external/*.h",
+        "src/Emulator/Cores/tlib/fpu/*.h",
+        "src/Emulator/Cores/tlib/arch/arm/*.h",
+        "src/Emulator/Cores/tlib/include/*.h",
+        "src/Emulator/Cores/tlib/tcg/*.h",
+        "src/Emulator/Cores/tlib/tcg/arm/*.h",
+        "src/Emulator/Cores/renode/*.h",
+        "src/Emulator/Cores/renode/include/*.h",
+        "src/Emulator/Cores/renode/arm/*.h",
+    ]),
+)
+
+#TODO: csharp_library resources doesn't allow to rename libraries
+# we are creating here binary, but it is in fact library
+# remove this hack, when csharp_library resources will allow to rename resources
+cc_binary(
+    name = "Antmicro.Renode.translate-arm-m-le.so",
+    linkshared = True,
+    srcs = [
+        "//:translate_sources",
+        "//:translate_headers",
+    ],
+    #hdrs = [
+    #],
+    deps = [
+        "//:tcg",
+    ],
+    defines = [
+        "HOST_BITS_64",
+        "HOST_I386=1",
+        "HOST_LONG_BITS=64",
+        "TARGET_ARM=1",
+        "TARGET_INSN_START_EXTRA_WORDS=1",
+        "TARGET_INT_ALIGNMENT=4",
+        "TARGET_LLONG_ALIGNMENT=4",
+        "TARGET_LONG_ALIGNMENT=4",
+        "TARGET_LONG_BITS=32",
+        "TARGET_SHORT_ALIGNMENT=2",
+        "TCG_TARGET_I386",
+        "NDEBUG",
+        "tlib_EXPORTS",
+        "TLIB_COMMIT=72ee92a",
+    ],
+    copts = [
+        "-fomit-frame-pointer",
+        "-O3",
+        "-fPIC",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wno-sign-compare",
+    ],
+    includes = [
+        "src/Emulator/Cores/tlib/arch/arm",
+        "src/Emulator/Cores/tlib/tcg/i386",
+        "src/Emulator/Cores/tlib/include",
+        "src/Emulator/Cores/tlib/fpu",
+        "src/Emulator/Cores/tlib/tcg",
+        "src/Emulator/Cores/renode/include",
+    ],
+)
