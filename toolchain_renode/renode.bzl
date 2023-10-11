@@ -31,6 +31,7 @@ def renode_test_impl(ctx):
         transitive_files=py_toolchain.files,
         symlinks = {
             "external/toolchain_renode/output/bin/Release/Renode.exe": toolchain.renode_executable,
+            "external/toolchain_renode/output/bin/Release/Antmicro.Renode.translate-arm-m-le.so": toolchain.renode_translate_arm_m_le,
         }
     ).merge_all(
       [dep.default_runfiles for dep in ctx.attr._default_reqs] +

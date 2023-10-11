@@ -37,6 +37,7 @@ filegroup(
         "//:scripts",
         "//:copy_styles_robot",
         "//:publish_renode",
+        "@RenodeInfrastructure//:translate-arm-m-le.so",
     ]
 )
 
@@ -327,9 +328,6 @@ csharp_binary(
         "@resources//system.configuration.configurationmanager",
         "@resources//mono.cecil",
         "@resources//ironpython",
-    ],
-    resources = [
-        "@RenodeInfrastructure//:Antmicro.Renode.translate-arm-m-le.so",
     ],
     defines = ["NET"],
     out = "Renode",

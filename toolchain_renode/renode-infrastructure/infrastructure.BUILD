@@ -1439,6 +1439,9 @@ csharp_library(
         "@resources//system.configuration.configurationmanager",
         "@resources//mono.cecil",
     ],
+    resources = [
+        "@RenodeInfrastructure//:translate-arm-m-le.so",
+    ],
     defines = ["NET"],
     allow_unsafe_blocks = True,
 )
@@ -2229,7 +2232,7 @@ filegroup(
         "src/Emulator/Cores/tlib/fpu/*.c",
         "src/Emulator/Cores/tlib/arch/arm/*.c",
         "src/Emulator/Cores/renode/*.c",
-        "src/Emulator/Cores/renode/arm/*.c",
+        "src/Emulator/Cores/renode/arch/arm/*.c",
     ]),
 )
 
@@ -2254,7 +2257,7 @@ filegroup(
 # we are creating here binary, but it is in fact library
 # remove this hack, when csharp_library resources will allow to rename resources
 cc_binary(
-    name = "Antmicro.Renode.translate-arm-m-le.so",
+    name = "translate-arm-m-le.so",
     linkshared = True,
     srcs = [
         "//:translate_sources",
@@ -2277,9 +2280,7 @@ cc_binary(
         "TARGET_LONG_BITS=32",
         "TARGET_SHORT_ALIGNMENT=2",
         "TCG_TARGET_I386",
-        "NDEBUG",
-        "tlib_EXPORTS",
-        "TLIB_COMMIT=72ee92a",
+        "TARGET_PROTO_ARM_M=1",
     ],
     copts = [
         "-fomit-frame-pointer",
@@ -2298,5 +2299,10 @@ cc_binary(
         "src/Emulator/Cores/tlib/fpu",
         "src/Emulator/Cores/tlib/tcg",
         "src/Emulator/Cores/renode/include",
+    ],
+    linkopts = [
+        "-Wl,--wrap=memcpy",
+        "-zdefs",
+        "-lpthread",
     ],
 )
