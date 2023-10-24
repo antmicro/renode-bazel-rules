@@ -1,4 +1,4 @@
-load("@renode_robot_deps//:requirements.bzl", "requirement")
+load("@renode_pip_deps//:requirements.bzl", "requirement")
 
 def renode_test_impl(ctx):
     toolchain = ctx.toolchains["@toolchain_renode//:toolchain_type"].renode_runtime

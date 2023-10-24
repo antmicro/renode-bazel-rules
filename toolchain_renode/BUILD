@@ -13,34 +13,6 @@ copy(
     out = "lib/resources/styles/robot.css",
 )
 
-filegroup(
-    name = "platforms",
-    srcs = glob(["platforms/**/*"]),
-)
-
-filegroup(
-    name = "scripts",
-    srcs = glob(["scripts/**/*"]),
-)
-
-# tools contains executable files that are part of the toolchain.
-filegroup(
-    name = "runtime",
-    srcs = [
-        "renode",
-        "renode-test",
-        "tools/common.sh",
-        "tests/run_tests.py",
-        "tests/tests.yaml",
-        ".renode-root",
-        "//:platforms",
-        "//:scripts",
-        "//:copy_styles_robot",
-        "//:publish_renode",
-        "@RenodeInfrastructure//:translate-arm-m-le.so",
-    ]
-)
-
 # toolchain_impl gathers information about the Renode toolchain.
 # See the RenodeToolchain provider.
 renode_toolchain(
@@ -62,24 +34,10 @@ load(
     "csharp_binary",
     "publish_binary",
 )
+
 csharp_library(
     name = "VerilatorPlugin",
-    srcs = [
-     "src/Plugins/VerilatorPlugin/Connection/IVerilatedPeripheral.cs",
-     "src/Plugins/VerilatorPlugin/Connection/LibraryVerilatorConnection.cs",
-     "src/Plugins/VerilatorPlugin/Connection/Protocols/ActionType.cs",
-     "src/Plugins/VerilatorPlugin/Connection/Protocols/ProtocolMessage.cs",
-     "src/Plugins/VerilatorPlugin/Connection/SocketVerilatorConnection.cs",
-     "src/Plugins/VerilatorPlugin/Verilated/Peripherals/BaseDoubleWordVerilatedPeripheral.cs",
-     "src/Plugins/VerilatorPlugin/Verilated/Peripherals/BaseVerilatedPeripheral.cs",
-     "src/Plugins/VerilatorPlugin/Verilated/Peripherals/CFUVerilatedPeripheral.cs",
-     "src/Plugins/VerilatorPlugin/Verilated/Peripherals/VerilatedCPU.cs",
-     "src/Plugins/VerilatorPlugin/Verilated/Peripherals/VerilatedPeripheral.cs",
-     "src/Plugins/VerilatorPlugin/Verilated/Peripherals/VerilatedRiscV32.cs",
-     "src/Plugins/VerilatorPlugin/Verilated/Peripherals/VerilatedRiscV32Registers.cs",
-     "src/Plugins/VerilatorPlugin/Verilated/Peripherals/VerilatedUART.cs",
-     "src/Plugins/VerilatorPlugin/VerilatorPlugin.cs",
-    ],
+    srcs = ["@toolchain_renode//:VerilatorPlugin"],
     internals_visible_to = ["lib_verilatorplugin"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
@@ -289,8 +247,8 @@ csharp_binary(
         "@RenodeInfrastructure//:AdvancedLoggerViewerPlugin",
         "@RenodeInfrastructure//:SampleCommandPlugin",
         "@RenodeInfrastructure//:TracePlugin",
-        "//:VerilatorPlugin",
-        "//:WiresharkPlugin",
+        "//toolchain_renode:VerilatorPlugin",
+        "//toolchain_renode:WiresharkPlugin",
         "@Migrant//:Migrant",
         "@ELFSharp//:ELFSharp",
         "@PacketDotNet//:PacketDotNet",

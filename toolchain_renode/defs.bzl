@@ -7,8 +7,10 @@ def fetch_renode_sources():
 
     maybe(
         http_archive,
-        name = "renode_sources",
+        name = "toolchain_renode",
         url = "https://github.com/renode/renode/releases/download/v%s/renode_%s_source.tar.xz" % (renode_version, renode_version),
         sha256 = archive_sha256,
         strip_prefix = "renode_%s_source" % renode_version,
+        build_file = "//toolchain_renode:BUILD.renode_sources",
     )
+
