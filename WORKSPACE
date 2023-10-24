@@ -1,3 +1,5 @@
+workspace(name = "com_antmicro_renode")
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file")
 
 http_archive(
@@ -25,9 +27,9 @@ rules_dotnet_nuget_packages()
 
 rules_dotnet_dev_nuget_packages()
 
-load("//toolchain_renode:defs.bzl", "install_toolchain_renode")
+load("//toolchain_renode:defs.bzl", "fetch_renode_sources")
 
-install_toolchain_renode()
+fetch_renode_sources()
 
 http_archive(
     name = "rules_python",
