@@ -1,7 +1,7 @@
 def _find_tool(ctx, name):
     cmd = None
     for f in ctx.files.runtime:
-      if f.path.endswith(name):
+        if f.path.endswith(name):
             cmd = f
             break
     if not cmd:

@@ -6,7 +6,7 @@ def renode_test_impl(ctx):
 
     py_toolchain = ctx.toolchains["@bazel_tools//tools/python:toolchain_type"].py3_runtime
 
-    wrapper = ctx.actions.declare_file('wrapper.sh')
+    wrapper = ctx.actions.declare_file("wrapper.sh")
 
     script = "RENODE_CI_MODE=YES LD_DEBUG=all {} \
 --show-log \
@@ -18,7 +18,7 @@ def renode_test_impl(ctx):
 -r $TEST_UNDECLARED_OUTPUTS_DIR {}".format(
         toolchain.renode_test.path,
         "--variable elf_file:`pwd`/{elf_file}".format(elf_file = ctx.file.binary.path) if ctx.file.binary else "",
-        " ".join([file.short_path for file in ctx.files.robot])
+        " ".join([file.short_path for file in ctx.files.robot]),
     )
 
     ctx.actions.write(
@@ -28,14 +28,14 @@ def renode_test_impl(ctx):
 
     runfiles = ctx.runfiles(
         files = toolchain.runtime + ctx.files.robot + ctx.files.binary,
-        transitive_files=py_toolchain.files,
+        transitive_files = py_toolchain.files,
         symlinks = {
             "external/toolchain_renode/output/bin/Release/Renode.exe": toolchain.renode_executable,
             "external/toolchain_renode/output/bin/Release/Antmicro.Renode.translate-arm-m-le.so": toolchain.renode_translate_arm_m_le,
-        }
+        },
     ).merge_all(
-      [dep.default_runfiles for dep in ctx.attr._default_reqs] +
-      [dep.default_runfiles for dep in ctx.attr.pip_reqs]
+        [dep.default_runfiles for dep in ctx.attr._default_reqs] +
+        [dep.default_runfiles for dep in ctx.attr.pip_reqs],
     )
 
     modules_roots = [
@@ -45,7 +45,7 @@ def renode_test_impl(ctx):
     pypath = ":".join([str(p) for p in modules_roots])
     env = {
         "PYTHONNOUSERSITE": "1",
-        "PYTHONPATH" : pypath,
+        "PYTHONPATH": pypath,
     }
 
     return [
@@ -53,14 +53,12 @@ def renode_test_impl(ctx):
         testing.TestEnvironment(env),
     ]
 
-
-
 renode_test = rule(
     implementation = renode_test_impl,
     attrs = {
-        "robot": attr.label_list(allow_empty = False, mandatory = True, allow_files=True),
+        "robot": attr.label_list(allow_empty = False, mandatory = True, allow_files = True),
         "binary": attr.label(allow_single_file = True),
-        "pip_reqs": attr.label_list(default = [], allow_files=True),
+        "pip_reqs": attr.label_list(default = [], allow_files = True),
         "_default_reqs": attr.label_list(default = [
             requirement("robotframework"),
             requirement("requests"),

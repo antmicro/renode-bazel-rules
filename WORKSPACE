@@ -22,8 +22,8 @@ load("@rules_dotnet//dotnet:rules_dotnet_nuget_packages.bzl", "rules_dotnet_nuge
 load("@rules_dotnet//dotnet:rules_dotnet_dev_nuget_packages.bzl", "rules_dotnet_dev_nuget_packages")
 
 rules_dotnet_nuget_packages()
-rules_dotnet_dev_nuget_packages()
 
+rules_dotnet_dev_nuget_packages()
 
 load("//toolchain_renode:defs.bzl", "install_toolchain_renode")
 
@@ -38,15 +38,15 @@ http_archive(
 load("@rules_python//python:pip.bzl", "pip_install")
 
 pip_install(
-    extra_pip_args = ["-v"],
     name = "renode_robot_deps",
-    requirements = "@toolchain_renode//:tests/requirements.txt",
+    extra_pip_args = ["-v"],
     python_interpreter = "python3",
     quiet = False,
+    requirements = "@toolchain_renode//:tests/requirements.txt",
 )
 
 http_file(
     name = "nxp_k64f--zephyr_basic_uart.elf",
-    urls = ["https://dl.antmicro.com/projects/renode/nxp_k64f--zephyr_basic_uart.elf-s_618844-2d588c6899efaae76a7a27136fd8cff667bbcb6f"],
     sha256 = "db432c3efa414a365dc55cdbffb29ed827914d7ef2d7a605cad981a2b349042d",
+    urls = ["https://dl.antmicro.com/projects/renode/nxp_k64f--zephyr_basic_uart.elf-s_618844-2d588c6899efaae76a7a27136fd8cff667bbcb6f"],
 )

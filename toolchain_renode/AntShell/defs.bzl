@@ -12,5 +12,5 @@ def install_antshell():
         patch_args = ["-p1"],
         patches = [
             "@//toolchain_renode/AntShell:Set-AssemblyVersion.patch",
-        ]
+        ],
     )

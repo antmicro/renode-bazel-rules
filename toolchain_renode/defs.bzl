@@ -34,10 +34,10 @@ def install_toolchain_renode():
     install_tlib()
 
     http_archive(
-	name = "renode-resources",
-	url = "https://github.com/renode/renode-resources/archive/refs/heads/master.zip",
-	sha256 = "e7009eb80dce0b46449763465a6701d06f627a4da08f04dcf433e01121660863",
-	build_file = "//toolchain_renode:renode-resources.BUILD",
+        name = "renode-resources",
+        url = "https://github.com/renode/renode-resources/archive/refs/heads/master.zip",
+        sha256 = "e7009eb80dce0b46449763465a6701d06f627a4da08f04dcf433e01121660863",
+        build_file = "//toolchain_renode:renode-resources.BUILD",
     )
 
     git_repository(
@@ -48,5 +48,5 @@ def install_toolchain_renode():
     )
 
     native.register_toolchains(
-	"@toolchain_renode//:toolchain"
+        "@toolchain_renode//:toolchain",
     )
