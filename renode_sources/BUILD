@@ -2934,12 +2934,35 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "termsharp",
+    srcs = [
+        "lib/termsharp/LayoutParameters.cs",
+        "lib/termsharp/ILayoutParameters.cs",
+        "lib/termsharp/Terminal.cs",
+        "lib/termsharp/SelectionMode.cs",
+        "lib/termsharp/SelectionDirection.cs",
+        "lib/termsharp/Cursor.cs",
+        "lib/termsharp/Rows/MonospaceTextRow.cs",
+        "lib/termsharp/Vt100/IDecoderLogger.cs",
+        "lib/termsharp/Vt100/ConsoleDecoderLogger.cs",
+        "lib/termsharp/Vt100/Decoder.cs",
+        "lib/termsharp/Vt100/Encoder.cs",
+        "lib/termsharp/Vt100/DecoderCommands.cs",
+        "lib/termsharp/Vt100/ControlByte.cs",
+        "lib/termsharp/Vt100/Vt100ITermFileEscapeCodeHandler.cs",
+        "lib/termsharp/Misc/SimpleCache.cs",
+        "lib/termsharp/Misc/Utilities.cs",
+        "lib/termsharp/Rows/IRow.cs",
+        "lib/termsharp/Misc/IntegerPosition.cs",
+        "lib/termsharp/Misc/ClipboardData.cs",
+        "lib/termsharp/Vt100/ByteUtf8Decoder.cs",
+        "lib/termsharp/Misc/IGenerationAware.cs",
+        "lib/termsharp/Rows/ImageRow.cs",
+        "lib/termsharp/Rows/RowUtils.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
