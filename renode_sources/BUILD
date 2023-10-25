@@ -2715,12 +2715,21 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "FdtSharp",
+    srcs = [
+        "lib/FdtSharp/FdtSharp/FlattenedDeviceTree.cs",
+        "lib/FdtSharp/FdtSharp/Properties/AssemblyInfo.cs",
+        "lib/FdtSharp/FdtSharp/Property.cs",
+        "lib/FdtSharp/FdtSharp/ReservationBlock.cs",
+        "lib/FdtSharp/FdtSharp/StringReader.cs",
+        "lib/FdtSharp/FdtSharp/StringWriter.cs",
+        "lib/FdtSharp/FdtSharp/Token.cs",
+        "lib/FdtSharp/FdtSharp/TreeNode.cs",
+        "lib/FdtSharp/FdtSharp/Utilities.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [

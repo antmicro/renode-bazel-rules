@@ -7,17 +7,7 @@ package(default_visibility = ["//visibility:public"])
 
 csharp_library(
     name = "FdtSharp",
-    srcs = [
-     "FdtSharp/FlattenedDeviceTree.cs",
-     "FdtSharp/Properties/AssemblyInfo.cs",
-     "FdtSharp/Property.cs",
-     "FdtSharp/ReservationBlock.cs",
-     "FdtSharp/StringReader.cs",
-     "FdtSharp/StringWriter.cs",
-     "FdtSharp/Token.cs",
-     "FdtSharp/TreeNode.cs",
-     "FdtSharp/Utilities.cs",
-    ],
+    srcs = ["@renode_sources//:FdtSharp"],
     internals_visible_to = ["lib_fdtsharp"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
