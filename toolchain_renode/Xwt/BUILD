@@ -7,7 +7,7 @@ package(default_visibility = ["//visibility:public"])
 
 csharp_library(
     name = "Xwt",
-    srcs = ["@toolchain_tenode//:Xwt"],
+    srcs = ["@renode_sources//:Xwt"],
     internals_visible_to = ["lib_xwt"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
@@ -19,7 +19,7 @@ csharp_library(
 
 csharp_library(
     name = "XwtGtk",
-    srcs = ["@toolchain_tenode//:XwtGtk"],
+    srcs = ["@renode_sources//:XwtGtk"],
     internals_visible_to = ["lib_xwtgtk"],
     target_frameworks = ["net6.0"],
     targeting_packs = [

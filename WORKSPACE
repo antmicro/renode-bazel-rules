@@ -1,7 +1,7 @@
 workspace(name = "com_antmicro_renode")
 
-load("//toolchain_renode:defs.bzl", "fetch_renode_sources")
-fetch_renode_sources()
+load("//renode_sources:load_renode.bzl", "load_renode_sources")
+load_renode_sources()
 
 load("//dependency_support:load_external.bzl", "load_external_repositories")
 load_external_repositories()

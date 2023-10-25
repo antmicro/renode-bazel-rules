@@ -1,3 +1,5 @@
+package(default_visibility = ["//visibility:public"])
+
 filegroup(
     name = "platforms",
     srcs = glob(["platforms/**/*"]),
@@ -496,7 +498,6 @@ filegroup(
 filegroup(
     name = "pip_requirements",
     srcs = ["tests/requirements.txt"],
-	visibility = ["//visibility:public"],
 )
 
 #filegroup(
