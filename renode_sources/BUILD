@@ -579,12 +579,50 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "AntShell",
+    srcs = [
+        "lib/AntShell/AntShell/CommandEditor.cs",
+        "lib/AntShell/AntShell/CommandHistory.cs",
+        "lib/AntShell/AntShell/CommandInteraction.cs",
+        "lib/AntShell/AntShell/CommandLine.cs",
+        "lib/AntShell/AntShell/Commands/BuiltIn/ColorsCommand.cs",
+        "lib/AntShell/AntShell/Commands/BuiltIn/CommandFromHistoryCommand.cs",
+        "lib/AntShell/AntShell/Commands/BuiltIn/HelpCommand.cs",
+        "lib/AntShell/AntShell/Commands/BuiltIn/HistoryCommand.cs",
+        "lib/AntShell/AntShell/Commands/BuiltIn/QuitCommand.cs",
+        "lib/AntShell/AntShell/Commands/BuiltIn/SaveCommmand.cs",
+        "lib/AntShell/AntShell/Commands/CommandBase.cs",
+        "lib/AntShell/AntShell/Commands/ICommand.cs",
+        "lib/AntShell/AntShell/Commands/ICommandDescription.cs",
+        "lib/AntShell/AntShell/Commands/ICommandInteraction.cs",
+        "lib/AntShell/AntShell/Commands/IOperator.cs",
+        "lib/AntShell/AntShell/Commands/ISuggestionProvider.cs",
+        "lib/AntShell/AntShell/Encoding/CustomDecoderFallback.cs",
+        "lib/AntShell/AntShell/Encoding/CustomDecoderFallbackBuffer.cs",
+        "lib/AntShell/AntShell/Helpers/ControlSequence.cs",
+        "lib/AntShell/AntShell/Helpers/Helper.cs",
+        "lib/AntShell/AntShell/Helpers/Position.cs",
+        "lib/AntShell/AntShell/Helpers/SequenceValidator.cs",
+        "lib/AntShell/AntShell/ICommandHandler.cs",
+        "lib/AntShell/AntShell/Prompt.cs",
+        "lib/AntShell/AntShell/Properties/AssemblyInfo.cs",
+        "lib/AntShell/AntShell/Shell.cs",
+        "lib/AntShell/AntShell/ShellSettings.cs",
+        "lib/AntShell/AntShell/Terminal/APIOSourceConverter.cs",
+        "lib/AntShell/AntShell/Terminal/BasicTerminalEmulator.cs",
+        "lib/AntShell/AntShell/Terminal/IActiveIOSource.cs",
+        "lib/AntShell/AntShell/Terminal/IIOSource.cs",
+        "lib/AntShell/AntShell/Terminal/IOProvider.cs",
+        "lib/AntShell/AntShell/Terminal/IPassiveIOSource.cs",
+        "lib/AntShell/AntShell/Terminal/ITerminalHandler.cs",
+        "lib/AntShell/AntShell/Terminal/NavigableTerminalEmulator.cs",
+        "lib/AntShell/AntShell/Terminal/PAIOSourceConverter.cs",
+        "lib/AntShell/AntShell/Terminal/StreamIOSource.cs",
+        "lib/AntShell/AntShell/Terminal/VirtualCursor.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [

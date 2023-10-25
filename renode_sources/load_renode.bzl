@@ -12,5 +12,7 @@ def load_renode_sources():
         sha256 = archive_sha256,
         strip_prefix = "renode_%s_source" % renode_version,
         build_file = "//renode_sources:BUILD",
+        patches = ["//renode_sources:renode.patch"],
+        patch_args = ["-p1"],
     )
 
