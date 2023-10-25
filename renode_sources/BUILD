@@ -2644,12 +2644,77 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "ELFSharp",
+    srcs = [
+        "lib/ELFSharp/ELFSharp/AssemblyInfo.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Class.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Consts.cs",
+        "lib/ELFSharp/ELFSharp/ELF/ELF.cs",
+        "lib/ELFSharp/ELFSharp/ELF/ELFReader.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Endianess.cs",
+        "lib/ELFSharp/ELFSharp/ELF/FileType.cs",
+        "lib/ELFSharp/ELFSharp/ELF/IELF.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Machine.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/INoteSection.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/IProgBitsSection.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/ISection.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/IStringTable.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/ISymbolEntry.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/ISymbolTable.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/NoteData.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/NoteSection.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/ProgBitsSection.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/Section.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SectionFlags.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SectionHeader.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SectionType.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SpecialSectionIndex.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SpecialSectionType.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/StringTable.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SymbolBinding.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SymbolEntry.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SymbolTable.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Sections/SymbolType.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Segments/ISegment.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Segments/Segment.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Segments/SegmentFlags.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Segments/SegmentType.cs",
+        "lib/ELFSharp/ELFSharp/ELF/Utilities.cs",
+        "lib/ELFSharp/ELFSharp/MachO/Command.cs",
+        "lib/ELFSharp/ELFSharp/MachO/CommandType.cs",
+        "lib/ELFSharp/ELFSharp/MachO/FileType.cs",
+        "lib/ELFSharp/ELFSharp/MachO/Machine.cs",
+        "lib/ELFSharp/ELFSharp/MachO/MachO.cs",
+        "lib/ELFSharp/ELFSharp/MachO/MachOReader.cs",
+        "lib/ELFSharp/ELFSharp/MachO/MachOResult.cs",
+        "lib/ELFSharp/ELFSharp/MachO/Symbol.cs",
+        "lib/ELFSharp/ELFSharp/MachO/SymbolTable.cs",
+        "lib/ELFSharp/ELFSharp/MiscUtil/BigEndianBitConverter.cs",
+        "lib/ELFSharp/ELFSharp/MiscUtil/EndianBinaryReader.cs",
+        "lib/ELFSharp/ELFSharp/MiscUtil/EndianBinaryWriter.cs",
+        "lib/ELFSharp/ELFSharp/MiscUtil/EndianBitConverter.cs",
+        "lib/ELFSharp/ELFSharp/MiscUtil/Endianness.cs",
+        "lib/ELFSharp/ELFSharp/MiscUtil/LittleEndianBitConverter.cs",
+        "lib/ELFSharp/ELFSharp/MiscUtil/NonClosingStreamWrapper.cs",
+        "lib/ELFSharp/ELFSharp/MiscUtil/Streams.cs",
+        "lib/ELFSharp/ELFSharp/PE/ImageExportDirectory.cs",
+        "lib/ELFSharp/ELFSharp/PE/ImageFileHeader.cs",
+        "lib/ELFSharp/ELFSharp/PE/ImageSectionHeader.cs",
+        "lib/ELFSharp/ELFSharp/PE/NamesTable.cs",
+        "lib/ELFSharp/ELFSharp/PE/PE.cs",
+        "lib/ELFSharp/ELFSharp/PE/PEReader.cs",
+        "lib/ELFSharp/ELFSharp/UImage/Architecture.cs",
+        "lib/ELFSharp/ELFSharp/UImage/CompressionType.cs",
+        "lib/ELFSharp/ELFSharp/UImage/ImageDataResult.cs",
+        "lib/ELFSharp/ELFSharp/UImage/ImageType.cs",
+        "lib/ELFSharp/ELFSharp/UImage/OS.cs",
+        "lib/ELFSharp/ELFSharp/UImage/UImage.cs",
+        "lib/ELFSharp/ELFSharp/UImage/UImageReader.cs",
+        "lib/ELFSharp/ELFSharp/UImage/UImageResult.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
