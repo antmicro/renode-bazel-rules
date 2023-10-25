@@ -1,5 +1,8 @@
 load("@rules_python//python:pip.bzl", "pip_parse")
 load("@python311//:defs.bzl", python_interpreter_target = "interpreter")
+load("//dependency_support/nuget_packages:nuget.bzl", load_nuget_packages="nuget_packages")
+load("@rules_dotnet//dotnet:rules_dotnet_nuget_packages.bzl", "rules_dotnet_nuget_packages")
+load("@rules_dotnet//dotnet:rules_dotnet_dev_nuget_packages.bzl", "rules_dotnet_dev_nuget_packages")
 
 def initialize_external_repositories():
     pip_parse(
@@ -8,3 +11,7 @@ def initialize_external_repositories():
         python_interpreter = python_interpreter_target,
     )
 
+    rules_dotnet_nuget_packages()
+    rules_dotnet_dev_nuget_packages()
+
+    load_nuget_packages()
