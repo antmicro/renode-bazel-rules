@@ -2730,12 +2730,24 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "InpliTftpServer",
+    srcs = [
+        "lib/InpliTftpServer/libtftp/ETftpErrorType.cs",
+        "lib/InpliTftpServer/libtftp/ETftpLogSeverity.cs",
+        "lib/InpliTftpServer/libtftp/ETftpOperationType.cs",
+        "lib/InpliTftpServer/libtftp/ETftpPacketType.cs",
+        "lib/InpliTftpServer/libtftp/helpers/BufferPrimitives.cs",
+        "lib/InpliTftpServer/libtftp/TftpGetStreamEventArgs.cs",
+        "lib/InpliTftpServer/libtftp/TftpLogEventArgs.cs",
+        "lib/InpliTftpServer/libtftp/TftpRequest.cs",
+        "lib/InpliTftpServer/libtftp/TftpServer.cs",
+        "lib/InpliTftpServer/libtftp/TftpSession.cs",
+        "lib/InpliTftpServer/libtftp/TftpTransferCompleteEventArgs.cs",
+        "lib/InpliTftpServer/libtftp/TftpTransferErrorEventArgs.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
