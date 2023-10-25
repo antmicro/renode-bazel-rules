@@ -2580,6 +2580,94 @@ filegroup(
     ]
 )
 
+filegroup(
+    name = "CxxDemangler",
+    srcs = [
+        "lib/CxxDemangler/CxxDemangler/CxxDemangler.cs",
+        "lib/CxxDemangler/CxxDemangler/DemanglingContext.cs",
+        "lib/CxxDemangler/CxxDemangler/IDemangleAsInner.cs",
+        "lib/CxxDemangler/CxxDemangler/IParsingResult.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/ArrayType.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/BareFunctionType.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/BaseUnresolvedName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/BuiltinType.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/CallOffset.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/ClassEnumType.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/ClosureTypeName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/CtorDtorName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/CvQualifiers.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/DataMemberPrefix.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Decltype.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/DestructorName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/DictionaryParser.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/DictionaryValueAttribute.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Discriminator.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Encoding.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Expression.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/ExprPrimary.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/FunctionParam.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/FunctionType.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Initializer.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/LambdaSig.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/LocalName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/MangledName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Name.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/NestedName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/OperatorName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/PointerToMemberType.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Prefix.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/RefQualifier.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/SimpleId.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/SimpleOperatorName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/SourceName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/SpecialName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/StandardBuiltinType.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Substitution.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/TemplateArg.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/TemplateArgs.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/TemplateParam.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/TemplateTemplateParam.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/Type.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/UnnamedTypeName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/UnqualifiedName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/UnresolvedName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/UnresolvedQualifierLevel.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/UnresolvedType.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/UnscopedName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/UnscopedTemplateName.cs",
+        "lib/CxxDemangler/CxxDemangler/Parsers/WellKnownComponent.cs",
+        "lib/CxxDemangler/CxxDemangler/ParsingContext.cs",
+        "lib/CxxDemangler/CxxDemangler/Properties/AssemblyInfo.cs",
+        "lib/CxxDemangler/CxxDemangler/SimpleStringParser.cs",
+        "lib/CxxDemangler/CxxDemangler/SimpleStringWriter.cs",
+        "lib/CxxDemangler/CxxDemangler/SubstitutionTable.cs",
+    ]
+)
+
+#filegroup(
+#    name = "",
+#    srcs = [
+#    ]
+#)
+#
+#filegroup(
+#    name = "",
+#    srcs = [
+#    ]
+#)
+#
+#filegroup(
+#    name = "",
+#    srcs = [
+#    ]
+#)
+#
+#filegroup(
+#    name = "",
+#    srcs = [
+#    ]
+#)
+#
 #filegroup(
 #    name = "",
 #    srcs = [
