@@ -2748,12 +2748,38 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "OptionsParser",
+    srcs = [
+        "lib/options-parser/Description/DelimiterAttribute.cs",
+        "lib/options-parser/Description/DescriptionAttribute.cs",
+        "lib/options-parser/Description/HideAttribute.cs",
+        "lib/options-parser/Description/NameAttribute.cs",
+        "lib/options-parser/Description/NumberOfElementsAttribute.cs",
+        "lib/options-parser/Description/PositionalArgumentAttribute.cs",
+        "lib/options-parser/Help/ApplicationInfo.cs",
+        "lib/options-parser/Help/HelpOption.cs",
+        "lib/options-parser/Parser/CommandLineOption.cs",
+        "lib/options-parser/Parser/CommandLineOptionDescriptor.cs",
+        "lib/options-parser/Parser/ElementDescriptor.cs",
+        "lib/options-parser/Parser/IFlag.cs",
+        "lib/options-parser/Parser/IParsedArgument.cs",
+        "lib/options-parser/Parser/IUnexpectedArgument.cs",
+        "lib/options-parser/Parser/OptionsParser.cs",
+        "lib/options-parser/Parser/ParseHelper.cs",
+        "lib/options-parser/Parser/ParserConfiguration.cs",
+        "lib/options-parser/Parser/PositionalArgument.cs",
+        "lib/options-parser/Parser/Token.cs",
+        "lib/options-parser/Parser/Tokenizer.cs",
+        "lib/options-parser/Parser/UnexpectedArgument.cs",
+        "lib/options-parser/Properties/AssemblyInfo.cs",
+        "lib/options-parser/Validation/DefaultValueAttribute.cs",
+        "lib/options-parser/Validation/IValidatedOptions.cs",
+        "lib/options-parser/Validation/RequiredAttribute.cs",
+        "lib/options-parser/Validation/ValidationException.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
