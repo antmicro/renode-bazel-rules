@@ -2552,12 +2552,34 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "BigGustave",
+    srcs = [
+        "lib/BigGustave/src/BigGustave/Adam7.cs",
+        "lib/BigGustave/src/BigGustave/Adler32Checksum.cs",
+        "lib/BigGustave/src/BigGustave/ChunkHeader.cs",
+        "lib/BigGustave/src/BigGustave/ColorType.cs",
+        "lib/BigGustave/src/BigGustave/CompressionMethod.cs",
+        "lib/BigGustave/src/BigGustave/Crc32.cs",
+        "lib/BigGustave/src/BigGustave/Decoder.cs",
+        "lib/BigGustave/src/BigGustave/FilterMethod.cs",
+        "lib/BigGustave/src/BigGustave/FilterType.cs",
+        "lib/BigGustave/src/BigGustave/HeaderValidationResult.cs",
+        "lib/BigGustave/src/BigGustave/IChunkVisitor.cs",
+        "lib/BigGustave/src/BigGustave/ImageHeader.cs",
+        "lib/BigGustave/src/BigGustave/InterlaceMethod.cs",
+        "lib/BigGustave/src/BigGustave/Palette.cs",
+        "lib/BigGustave/src/BigGustave/Pixel.cs",
+        "lib/BigGustave/src/BigGustave/Png.cs",
+        "lib/BigGustave/src/BigGustave/PngBuilder.cs",
+        "lib/BigGustave/src/BigGustave/PngOpener.cs",
+        "lib/BigGustave/src/BigGustave/PngOpenerSettings.cs",
+        "lib/BigGustave/src/BigGustave/PngStreamWriteHelper.cs",
+        "lib/BigGustave/src/BigGustave/RawPngData.cs",
+        "lib/BigGustave/src/BigGustave/StreamHelper.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
