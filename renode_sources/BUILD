@@ -4289,6 +4289,16 @@ filegroup(
     ]
 )
 
+filegroup(
+    name = "cores-arm-m",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/Arm-M/CortexM.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm-M/CortexMRegisters.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm-M/NVIC.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm-M/DWT.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
