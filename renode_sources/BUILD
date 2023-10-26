@@ -4319,12 +4319,14 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "cores-ppc",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/PowerPC/PowerPc.cs",
+        "src/Infrastructure/src/Emulator/Cores/PowerPC/PowerPcRegisters.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
