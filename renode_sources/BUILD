@@ -4271,12 +4271,24 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "cores-arm",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/Arm/ARMCommon.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm/Arm.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm/ARM_GenericInterruptController.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm/ArmRegisters.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm/ARMv7A.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm/SnoopControlUnit.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm/Timers/ARM_GenericTimer.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm/Timers/CortexAGlobalTimer.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm/Timers/CortexAPrivateTimer.cs",
+        "src/Infrastructure/src/Emulator/Cores/Debug/CPUTracer.cs",
+        "src/Infrastructure/src/Emulator/Cores/Debug/FunctionCallParameter.cs",
+        "src/Infrastructure/src/Emulator/Cores/Debug/FunctionCallParameterType.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
