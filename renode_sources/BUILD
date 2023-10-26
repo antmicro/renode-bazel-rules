@@ -4309,12 +4309,16 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "cores-i386",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/X86/X86.cs",
+        "src/Infrastructure/src/Emulator/Cores/X86/X86Registers.cs",
+        "src/Infrastructure/src/Emulator/Cores/X86/LAPIC.cs",
+        "src/Infrastructure/src/Emulator/Cores/X86/IOAPIC.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
