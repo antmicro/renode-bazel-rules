@@ -4240,24 +4240,37 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "AdvancedLoggerViewerPlugin",
+    srcs = [
+        "src/Infrastructure/src/Plugins/AdvancedLoggerViewerPlugin/AdvancedLoggerViewer.cs",
+        "src/Infrastructure/src/Plugins/AdvancedLoggerViewerPlugin/AdvancedLoggerViewerCommand.cs",
+        "src/Infrastructure/src/Plugins/AdvancedLoggerViewerPlugin/ListViewLog.cs",
+        "src/Infrastructure/src/Plugins/AdvancedLoggerViewerPlugin/LogLevelsSelectionWidget.cs",
+        "src/Infrastructure/src/Plugins/AdvancedLoggerViewerPlugin/LogViewer.cs",
+        "src/Infrastructure/src/Plugins/AdvancedLoggerViewerPlugin/LogViewerHelpDialog.cs",
+    ]
+)
+
+filegroup(
+    name = "SampleCommandPlugin",
+    srcs = [
+        "src/Infrastructure/src/Plugins/SampleCommandPlugin/HelloCommand.cs",
+        "src/Infrastructure/src/Plugins/SampleCommandPlugin/SampleCommandPlugin.cs",
+    ]
+)
+
+filegroup(
+    name = "TracePlugin",
+    srcs = [
+        "src/Infrastructure/src/Plugins/TracePlugin/Handlers/DefaultFunctionHandler.cs",
+        "src/Infrastructure/src/Plugins/TracePlugin/Handlers/IFunctionHandler.cs",
+        "src/Infrastructure/src/Plugins/TracePlugin/Handlers/PrintfHandler.cs",
+        "src/Infrastructure/src/Plugins/TracePlugin/TraceCommand.cs",
+        "src/Infrastructure/src/Plugins/TracePlugin/TracePlugin.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [

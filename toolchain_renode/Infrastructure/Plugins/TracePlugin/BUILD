@@ -1,9 +1,9 @@
 load("@rules_dotnet//dotnet:defs.bzl", "csharp_library")
 
 csharp_library(
-    name = "UI",
-    srcs = ["@renode_sources//:UI"],
-    internals_visible_to = ["//lib_ui"],
+    name = "TracePlugin",
+    srcs = ["@renode_sources//:TracePlugin"],
+    internals_visible_to = ["lib_traceplugin"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
         "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
@@ -11,6 +11,8 @@ csharp_library(
     deps = [
         "//toolchain_renode/Infrastructure/Emulator/Main:Emulator",
         "//toolchain_renode/Infrastructure/Emulator/Extensions:Extensions",
+        "//toolchain_renode/Infrastructure/Emulator/Peripherals:Peripherals",
+        "//:cores-arm",
         "//toolchain_renode/Migrant:Migrant",
         "//toolchain_renode/ELFSharp:ELFSharp",
         "//toolchain_renode/PacketDotNet:PacketDotNet",
@@ -20,8 +22,7 @@ csharp_library(
         "//toolchain_renode/BigGustave:BigGustave",
         "//toolchain_renode/Xwt:XwtGtk",
         "//toolchain_renode/termsharp:TermSharp",
-        "//toolchain_renode/options-parser:OptionsParser",
-        "//toolchain_renode/FdtSharp:FdtSharp",
+        "//toolchain_renode/resources:LuceneNet",
         "//toolchain_renode/resources:IronPython",
         "//toolchain_renode/resources:IronPythonStdLib",
         "//toolchain_renode/resources:IronPythonModules",
@@ -29,7 +30,6 @@ csharp_library(
         "//toolchain_renode/resources:MonoLinqExpressions",
         "//toolchain_renode/resources:MonoTextTemplating",
         "//toolchain_renode/resources:Dynamitey",
-        "//toolchain_renode/resources:CookComputingXmlRpcV2",
         "@nuget_packages//system.drawing.common",
         "@nuget_packages//gtksharp",
         "@nuget_packages//atksharp",
@@ -48,5 +48,6 @@ csharp_library(
         "@nuget_packages//mono.cecil",
     ],
     defines = ["NET"],
-	visibility = ["//visibility:public"],
+    allow_unsafe_blocks = True,
 )
+

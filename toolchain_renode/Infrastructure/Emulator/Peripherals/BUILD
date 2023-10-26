@@ -53,4 +53,5 @@ csharp_library(
     ],
     defines = ["NET"],
     allow_unsafe_blocks = True,
+	visibility = ["//visibility:public"],
 )
