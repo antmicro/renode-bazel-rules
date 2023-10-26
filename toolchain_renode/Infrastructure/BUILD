@@ -8,10 +8,7 @@ package(default_visibility = ["//visibility:public"])
 
 csharp_library(
     name = "cores-ppc64",
-    srcs = [
-        "src/Infrastructure/src/Emulator/Cores/PowerPC/PowerPc64.cs",
-        "src/Infrastructure/src/Emulator/Cores/PowerPC/PowerPc64Registers.cs",
-    ],
+    srcs = ["@renode_sources//:cores-ppc64"],
     internals_visible_to = ["lib_cores-ppc64"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
@@ -64,38 +61,7 @@ csharp_library(
 
 csharp_library(
     name = "cores-riscv",
-    srcs = [
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscV32.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/VexRiscv.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PicoRV32.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscV32Registers.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/CoreLevelInterruptor.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/MiV_CoreLevelInterruptor.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/BaseRiscV.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PlatformLevelInterruptController.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PrivilegeLevel.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/IbexRiscV32.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/Minerva.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/Ri5cy.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/OpenTitan_BigNumberAcceleratorCore.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/SimpleCSR.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/CSRValidationLevel.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscVCpuHooksExtensions.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscVInstructionPythonEngine.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscVCsrPythonEngine.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/CV32E40P.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PULP_InterruptController.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PULP_EventController.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/OpenTitan_PlatformLevelInterruptController.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PLIC/IPlatformLevelInterruptController.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PLIC/IrqContext.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PLIC/IrqSource.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/PLIC/PlatformLevelInterruptControllerBase.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RegisterDescription.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/NonstandardCSR.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/VectorInstructionsOpcodes.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscvOpcodesParser.cs",
-    ],
+    srcs = ["@renode_sources//:cores-riscv"],
     internals_visible_to = ["lib_cores-riscv"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
@@ -148,10 +114,7 @@ csharp_library(
 
 csharp_library(
     name = "cores-riscv64",
-    srcs = [
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscV64.cs",
-        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscV64Registers.cs",
-    ],
+    srcs = ["@renode_sources//:cores-riscv64"],
     internals_visible_to = ["lib_cores-riscv64"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
@@ -205,10 +168,7 @@ csharp_library(
 
 csharp_library(
     name = "cores-sparc",
-    srcs = [
-        "src/Infrastructure/src/Emulator/Cores/Sparc/Sparc.cs",
-        "src/Infrastructure/src/Emulator/Cores/Sparc/SparcRegisters.cs",
-    ],
+    srcs = ["@renode_sources//:cores-sparc"],
     internals_visible_to = ["lib_cores-sparc"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
@@ -261,10 +221,7 @@ csharp_library(
 
 csharp_library(
     name = "cores-xtensa",
-    srcs = [
-        "src/Infrastructure/src/Emulator/Cores/Xtensa/Xtensa.cs",
-        "src/Infrastructure/src/Emulator/Cores/Xtensa/XtensaRegisters.cs",
-    ],
+    srcs = ["@renode_sources//:cores-xtensa"],
     internals_visible_to = ["lib_cores-xtensa"],
     target_frameworks = ["net6.0"],
     targeting_packs = [

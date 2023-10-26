@@ -4327,24 +4327,74 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "cores-ppc64",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/PowerPC/PowerPc64.cs",
+        "src/Infrastructure/src/Emulator/Cores/PowerPC/PowerPc64Registers.cs",
+    ]
+)
+
+filegroup(
+    name = "cores-riscv",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscV32.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/VexRiscv.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PicoRV32.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscV32Registers.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/CoreLevelInterruptor.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/MiV_CoreLevelInterruptor.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/BaseRiscV.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PlatformLevelInterruptController.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PrivilegeLevel.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/IbexRiscV32.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/Minerva.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/Ri5cy.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/OpenTitan_BigNumberAcceleratorCore.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/SimpleCSR.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/CSRValidationLevel.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscVCpuHooksExtensions.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscVInstructionPythonEngine.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscVCsrPythonEngine.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/CV32E40P.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PULP_InterruptController.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PULP_EventController.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/OpenTitan_PlatformLevelInterruptController.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PLIC/IPlatformLevelInterruptController.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PLIC/IrqContext.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PLIC/IrqSource.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/PLIC/PlatformLevelInterruptControllerBase.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RegisterDescription.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/NonstandardCSR.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/VectorInstructionsOpcodes.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscvOpcodesParser.cs",
+    ]
+)
+
+filegroup(
+    name = "cores-riscv64",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscV64.cs",
+        "src/Infrastructure/src/Emulator/Cores/RiscV/RiscV64Registers.cs",
+    ]
+)
+
+filegroup(
+    name = "cores-sparc",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/Sparc/Sparc.cs",
+        "src/Infrastructure/src/Emulator/Cores/Sparc/SparcRegisters.cs",
+    ]
+)
+
+filegroup(
+    name = "cores-xtensa",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/Xtensa/Xtensa.cs",
+        "src/Infrastructure/src/Emulator/Cores/Xtensa/XtensaRegisters.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
