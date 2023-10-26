@@ -3,91 +3,86 @@ load("@rules_dotnet//dotnet:defs.bzl", "import_dll")
 package(default_visibility = ["//visibility:public"])
 
 import_dll(
-    name = "lucene",
-    dll = "libraries/Lucene.Net.dll",
+    name = "LuceneNet",
+    dll = "@renode_sources//:LuceneNet",
 )
 
 import_dll(
     name = "IronPython",
-    dll = "libraries/IronPython.dll",
+    dll = "@renode_sources//:IronPython",
 )
 
 import_dll(
     name = "IronPythonStdLib",
-    dll = "libraries/IronPython.StdLib.dll",
+    dll = "@renode_sources//:IronPythonStdLib",
 )
 
 import_dll(
     name = "IronPythonModules",
-    dll = "libraries/IronPython.Modules.dll",
+    dll = "@renode_sources//:IronPythonModules",
 )
 
 import_dll(
     name = "MicrosoftScripting",
-    dll = "libraries/Microsoft.Scripting.dll",
+    dll = "@renode_sources//:MicrosoftScripting",
 )
 
 import_dll(
     name = "LZ4",
-    dll = "libraries/LZ4.dll",
+    dll = "@renode_sources//:LZ4",
 )
 
 import_dll(
     name = "MonoCecil",
-    dll = "libraries/Mono.Cecil.dll",
+    dll = "@renode_sources//:MonoCecil",
 )
 
 import_dll(
     name = "MonoLinqExpressions",
-    dll = "libraries/Mono.Linq.Expressions.dll",
+    dll = "@renode_sources//:MonoLinqExpressions",
 )
 
 import_dll(
     name = "MonoTextTemplating",
-    dll = "libraries/Mono.TextTemplating.dll",
+    dll = "@renode_sources//:MonoTextTemplating",
 )
 
 import_dll(
     name = "Dynamitey",
-    dll = "libraries/Dynamitey.dll",
+    dll = "@renode_sources//:Dynamitey",
 )
 
 import_dll(
     name = "Nini",
-    dll = "libraries/Nini.dll",
+    dll = "@renode_sources//:Nini",
 )
 
 import_dll(
     name = "BitMiracleLibJpegNet",
-    dll = "libraries/BitMiracle.LibJpeg.NET.dll",
+    dll = "@renode_sources//:BitMiracleLibJpegNet",
 )
 
 import_dll(
     name = "Sprache",
-    dll = "libraries/Sprache.dll",
+    dll = "@renode_sources//:Sprache",
 )
 
 import_dll(
     name = "CookComputingXmlRpcV2",
-    dll = "libraries/CookComputing.XmlRpcV2.dll",
+    dll = "@renode_sources//:CookComputingXmlRpcV2",
 )
 
 import_dll(
     name = "FlatBuffers",
-    dll = "libraries/FlatBuffers.dll",
+    dll = "@renode_sources//:FlatBuffers",
 )
 
 import_dll(
     name = "protobuf-net",
-    dll = "libraries/protobuf-net.dll",
+    dll = "@renode_sources//:protobuf-net",
 )
 
 import_dll(
     name = "MicrosoftDynamic",
-    dll = "libraries/Microsoft.Dynamic.dll",
-)
-
-filegroup(
-    name = "robot-style",
-    srcs = ["styles/robot.css"],
+    dll = "@renode_sources//:MicrosoftDynamic",
 )

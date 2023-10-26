@@ -1,5 +1,4 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file")
-load("//dependency_support/renode-resources:resources.bzl", "renode_resources")
 
 def load_external_repositories():
     http_archive(
