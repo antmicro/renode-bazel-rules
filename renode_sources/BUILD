@@ -4299,12 +4299,16 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "cores-arm64",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/Arm64/ARMv8A.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm64/ARMv8ARegisters.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm64/ARMv8R.cs",
+        "src/Infrastructure/src/Emulator/Cores/Arm64/ARMv8RRegisters.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
