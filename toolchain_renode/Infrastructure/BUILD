@@ -58,7 +58,7 @@ csharp_library(
     ],
     defines = ["NET"],
     allow_unsafe_blocks = True,
-	visibility = ["//visibility:public"],
+    visibility = ["//visibility:public"],
 )
 
 csharp_library(
@@ -114,7 +114,7 @@ csharp_library(
     ],
     defines = ["NET"],
     allow_unsafe_blocks = True,
-	visibility = ["//visibility:public"],
+    visibility = ["//visibility:public"],
 )
 
 csharp_library(
@@ -198,7 +198,7 @@ csharp_library(
     ],
     defines = ["NET"],
     allow_unsafe_blocks = True,
-	visibility = ["//visibility:public"],
+    visibility = ["//visibility:public"],
 )
 
 csharp_library(
@@ -255,7 +255,7 @@ csharp_library(
     ],
     defines = ["NET"],
     allow_unsafe_blocks = True,
-	visibility = ["//visibility:public"],
+    visibility = ["//visibility:public"],
 )
 
 csharp_library(
@@ -311,7 +311,7 @@ csharp_library(
     ],
     defines = ["NET"],
     allow_unsafe_blocks = True,
-	visibility = ["//visibility:public"],
+    visibility = ["//visibility:public"],
 )
 
 csharp_library(
@@ -367,7 +367,7 @@ csharp_library(
     ],
     defines = ["NET"],
     allow_unsafe_blocks = True,
-	visibility = ["//visibility:public"],
+    visibility = ["//visibility:public"],
 )
 
 
