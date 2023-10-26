@@ -1,7 +1,4 @@
-load(
-    "@rules_dotnet//dotnet:defs.bzl",
-    "csharp_library",
-)
+load("@rules_dotnet//dotnet:defs.bzl", "csharp_library")
 
 package(default_visibility = ["//visibility:public"])
 
