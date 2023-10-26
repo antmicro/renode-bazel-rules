@@ -4200,12 +4200,46 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
-#
+filegroup(
+    name = "UI",
+    srcs = [
+        "src/Infrastructure/src/UI/CLIProgressMonitor.cs",
+        "src/Infrastructure/src/UI/CommandLineInterface.cs",
+        "src/Infrastructure/src/UI/ConsoleBackendAnalyzers/GnomeTerminalProvider.cs",
+        "src/Infrastructure/src/UI/ConsoleBackendAnalyzers/ProcessBasedProvider.cs",
+        "src/Infrastructure/src/UI/ConsoleBackendAnalyzers/PuttyProvider.cs",
+        "src/Infrastructure/src/UI/ConsoleBackendAnalyzers/TerminalAppProvider.cs",
+        "src/Infrastructure/src/UI/ConsoleBackendAnalyzers/WindowPositionProvider.cs",
+        "src/Infrastructure/src/UI/ConsoleBackendAnalyzers/XTermProvider.cs",
+        "src/Infrastructure/src/UI/ConsoleIOSource.cs",
+        "src/Infrastructure/src/UI/ConsoleWindowBackendAnalyzer.cs",
+        "src/Infrastructure/src/UI/CrashHandler.cs",
+        "src/Infrastructure/src/UI/DummyIOSource.cs",
+        "src/Infrastructure/src/UI/IConsoleBackendAnalyzerProvider.cs",
+        "src/Infrastructure/src/UI/Options.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/DisplayMode.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/DummyVideoAnalyzer.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Events/IEventSource.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Events/WPFToKeyScanCodeConverter.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Events/X11EventSource.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Events/X11ToKeyScanCodeConverter.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Events/XWTEventSource.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/FrameBufferDisplayWidget.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Handlers/AbsolutePointerHandler.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Handlers/IOHandler.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Handlers/PointerHandler.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/Handlers/RelativePointerHandler.cs",
+        "src/Infrastructure/src/UI/VideoAnalyzer/VideoAnalyzer.cs",
+        "src/Infrastructure/src/UI/XwtProvider/ApplicationExtensions.cs",
+        "src/Infrastructure/src/UI/XwtProvider/DllMap.cs",
+        "src/Infrastructure/src/UI/XwtProvider/GUIPeripheralBackendAnalyzer.cs",
+        "src/Infrastructure/src/UI/XwtProvider/IHasWidget.cs",
+        "src/Infrastructure/src/UI/XwtProvider/Progress/ProgressWidget.cs",
+        "src/Infrastructure/src/UI/XwtProvider/WindowedUserInterfaceProvider.cs",
+        "src/Infrastructure/src/UI/XwtProvider/XwtProvider.cs",
+    ]
+)
+
 #filegroup(
 #    name = "",
 #    srcs = [
