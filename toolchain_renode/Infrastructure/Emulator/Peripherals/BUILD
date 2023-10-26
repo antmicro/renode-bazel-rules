@@ -1,15 +1,16 @@
 load("@rules_dotnet//dotnet:defs.bzl", "csharp_library")
 
 csharp_library(
-    name = "Extensions",
-    srcs = ["@renode_sources//:Extensions"],
-    internals_visible_to = ["lib_extensions"],
+    name = "Peripherals",
+    srcs = ["@renode_sources//:Peripherals"],
+    internals_visible_to = ["lib_renode-peripherals"],
     target_frameworks = ["net6.0"],
     targeting_packs = [
         "@rules_dotnet_nuget_packages//microsoft.netcore.app.ref",
     ],
     deps = [
         "//toolchain_renode/Infrastructure/Emulator/Main:Emulator",
+        "//toolchain_renode/Infrastructure/Emulator/Extensions:Extensions",
         "//toolchain_renode/Migrant:Migrant",
         "//toolchain_renode/ELFSharp:ELFSharp",
         "//toolchain_renode/PacketDotNet:PacketDotNet",
@@ -20,6 +21,7 @@ csharp_library(
         "//toolchain_renode/Xwt:XwtGtk",
         "//toolchain_renode/termsharp:TermSharp",
         "//toolchain_renode/FdtSharp:FdtSharp",
+        "//toolchain_renode/bc-csharp:crypto",
         "//toolchain_renode/resources:LuceneNet",
         "//toolchain_renode/resources:IronPython",
         "//toolchain_renode/resources:IronPythonStdLib",
@@ -30,7 +32,8 @@ csharp_library(
         "//toolchain_renode/resources:MonoTextTemplating",
         "//toolchain_renode/resources:Dynamitey",
         "//toolchain_renode/resources:Nini",
-        "//toolchain_renode/resources:BitMiracleLibJpegNet",
+        "//toolchain_renode/resources:FlatBuffers",
+        "//toolchain_renode/resources:protobuf-net",
         "@nuget_packages//system.drawing.common",
         "@nuget_packages//gtksharp",
         "@nuget_packages//atksharp",
@@ -48,8 +51,6 @@ csharp_library(
         "@nuget_packages//system.configuration.configurationmanager",
         "@nuget_packages//mono.cecil",
     ],
-    defines = ["NET", "PLATFORM_LINUX"],
+    defines = ["NET"],
     allow_unsafe_blocks = True,
-    visibility = ["//visibility:public"],
 )
-
