@@ -4395,8 +4395,300 @@ filegroup(
     ]
 )
 
-#filegroup(
-#    name = "",
-#    srcs = [
-#    ]
-#)
+filegroup(
+    name = "tlib-arm64",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/arch_callbacks.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/arch_callbacks.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/arch_exports.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/arch_exports.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/arm_ldst.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/cpu.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/cpu_h_epilogue.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/cpu_names.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/cpu-param.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/cpu_registers.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/cpu_registers.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/crc32.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/crypto_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/helper-a64.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/helper-a64.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/helper-sve.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/helper_v7.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/iwmmxt_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/mmu.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/mmu.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/mte_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/neon_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/op_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/stubs.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/sve_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/sve_ldst_internal.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/syndrome.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/system_registers.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/system_registers.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/translate-a32.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/translate-a64.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/translate-a64.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/translate.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/translate.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/translate-neon.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/translate-sve.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/translate-vfp.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/vec_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/vec_internal.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm64/vfp_helper.c",
+    ]
+)
+
+filegroup(
+    name = "tlib-arm",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/arch_callbacks.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/arch_callbacks.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/arch_exports.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/arch_exports.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/cpu.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/cpu_registers.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/cpu_registers.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/iwmmxt_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/neon_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/op_addsub.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/op_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/arm/translate.c",
+    ]
+)
+
+filegroup(
+    name = "tlib-i386",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/arch_callbacks.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/arch_callbacks.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/cpu.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/cpuid.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/cpu_registers.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/cpu_registers.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/helper_template.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/op_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/ops_sse.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/ops_sse_header.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/svm.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/translate.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/i386/x86.c",
+    ]
+)
+
+filegroup(
+    name = "tlib-ppc",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/arch_callbacks.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/arch_callbacks.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/arch_exports.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/arch_exports.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/cpu.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/cpu_registers.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/cpu_registers.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/helper_regs.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/op_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/ppc/translate.c",
+    ]
+)
+
+filegroup(
+    name = "tlib-riscv",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/arch_callbacks.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/arch_callbacks.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/arch_exports.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/arch_exports.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/cpu_bits.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/cpu.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/cpu_registers.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/cpu_registers.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/fpu_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/fpu_vector_helper_template.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/instmap.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/op_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/pmp.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/pmp.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/translate.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/vector_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/riscv/vector_helper_template.h",
+    ]
+)
+
+filegroup(
+    name = "tlib-sparc",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/arch_callbacks.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/arch_callbacks.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/arch_exports.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/arch_exports.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/cpu.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/cpu_registers.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/cpu_registers.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/op_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/sparc/translate.c",
+    ]
+)
+
+filegroup(
+    name = "tlib-xtensa",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/arch_callbacks.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/arch_callbacks.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/arch_exports.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/arch_exports.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-apollolake.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-apollolake/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-baytrail.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-baytrail/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-cannonlake.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-cannonlake/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-dc233c.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-dc233c/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-de212.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-de212/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-de233_fpu.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-de233_fpu/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-de233_fpu/core-matmap.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-dsp3400.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-dsp3400/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-dsp3400/core-matmap.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-esp32.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-esp32/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-esp32s2.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-esp32s2/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-esp32s3.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-esp32s3/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-haswell.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-haswell/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-icelake.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-icelake/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-imx8.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-imx8/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-imx8m.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-imx8m/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-sample_controller.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-sample_controller/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-test_kc705_be.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-test_kc705_be/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-test_mmuhifi_c3.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-test_mmuhifi_c3/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-tigerlake.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/core-tigerlake/core-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/cpu.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/cpu.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/cpu_registers.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/cpu_registers.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/dbg_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/exc_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/fpu_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/mmu_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/op_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/overlay_tool.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/translate.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/win_helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/xtensa-isa.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/xtensa-isa.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/xtensa/xtensa-isa-internal.h",
+    ]
+)
+
+filegroup(
+    name = "tlib-tcg-arm",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/arm/tcg-target.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/arm/tcg-target.h",
+    ]
+)
+
+filegroup(
+    name = "tlib-tcg-i386",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/i386/tcg-target.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/i386/tcg-target.h",
+    ]
+)
+
+filegroup(
+    name = "tlib-tcg-common",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/additional.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/additional.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/bswap.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/host-utils.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/host-utils.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/optimize.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-additional.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-gvec-desc.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-memop.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-opc.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-op-gvec.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-op-gvec.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-op.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-op-vec.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-runtime.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-runtime-gvec.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/tcg/tcg-runtime.h",
+    ]
+)
+
+filegroup(
+    name = "tlib-common",
+    srcs = [
+        "src/Infrastructure/src/Emulator/Cores/tlib/arch/translate-all.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/atomic.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/callbacks.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/cpu-exec.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/debug.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/exec.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/exports.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/fpu/softfloat.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/fpu/softfloat.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/fpu/softfloat-macros.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/fpu/softfloat-specialize.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/helper.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/atomic.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/bit_helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/callbacks.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/compiler.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/cpu-all.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/cpu-common.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/cpu-defs.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/debug.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/def-helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/exec-all.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/exports.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/global_helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/infrastructure.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/int128.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/osdep.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/softmmu_defs.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/softmmu_exec.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/softmmu_header.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/softmmu_template.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/targphys.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/tb-helper.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/tlib-queue.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/include/ttable.h",
+        "src/Infrastructure/src/Emulator/Cores/tlib/infrastructure.c",
+        "src/Infrastructure/src/Emulator/Cores/tlib/unwind.h",
+    ]
+)
