@@ -1,0 +1,23 @@
+module(
+    name = "renode_bazel_examples",
+    version = "0.0.0",
+)
+
+bazel_dep(name = "rules_renode", version = "0.0.0")
+local_path_override(
+    module_name = "rules_renode",
+    path = "../..",
+)
+
+renode = use_extension("@rules_renode//renode:extensions.bzl", "renode")
+use_repo(renode, "renode_toolchains")
+
+register_toolchains("@renode_toolchains//:all")
+
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "cortex-r52-hirtos-hello",
+    sha256 = "73d6dea92d5bcff9c29b4e5c76aba5a691797cd68d458c243855055756f8093c",
+    url = "https://dl.antmicro.com/projects/renode/cortex-r52--hirtos-hello.elf-s_140356-d44a0b48e22a17fa8cb83ef08243ec23942812c0",
+)

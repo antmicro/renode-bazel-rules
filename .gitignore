@@ -1,2 +1,5 @@
 bazel-*
 .bazelrc
+
+examples/*/*.log
+MODULE.bazel.lock

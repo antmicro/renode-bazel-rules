@@ -1,0 +1,45 @@
+stages:
+  - test
+
+.common_triggers: &common_triggers
+  only:
+    variables:
+      - $CI_COMMIT_REF_NAME == "main"
+      - $CI_PIPELINE_SOURCE == "merge_request"
+
+.install_bazel: &install_bazel |- 
+  apt -qq update
+  apt -qqy install apt-transport-https curl gnupg clang file zip
+  curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
+  mv bazel-archive-keyring.gpg /usr/share/keyrings
+  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
+  apt -qq update
+  apt -qqy install bazel
+
+test_examples:
+  image: debian:12-slim
+  stage: test
+  <<: *common_triggers
+  script:
+    - *install_bazel
+    - useradd -m non_root
+    - chmod a+w -R .
+    - pushd examples/cortex-r52
+    # rules_python doesn't support a hermetic toolchain run by root
+    - su non_root -c "bazel test //:all"
+    - ls bazel-testlogs/*/test.outputs/outputs.zip
+    - popd
+    - pushd examples/failing-test
+    - su non_root -c "! bazel test //:all > test.log || exit 1"
+    - ls bazel-testlogs/*/test.outputs/outputs.zip
+    - grep -E "//:success-test +PASSED" test.log
+    - grep -E "//:failing-test +FAILED" test.log
+    - popd
+  after_script:
+    - mkdir artifacts
+    - cp -LR examples/*/bazel-testlogs/* artifacts
+  artifacts:
+      when:
+        always
+      paths:
+        - artifacts

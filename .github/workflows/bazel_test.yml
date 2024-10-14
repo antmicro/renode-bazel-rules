@@ -5,22 +5,29 @@ on:
   - workflow_dispatch
 
 jobs:
-  test:
+  test_examples:
+    name: Test examples
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Temporary workaround
-        run: mkdir -p ~/.config/renode
-
-      - name: Run example test
+      - name: Run example tests
         run: |
-          bazel test //examples/nxp-k64f:nxp-k64f-test
+          pushd examples/cortex-r52
+          bazel test //:all
+          ls bazel-testlogs/*/test.outputs/outputs.zip
+          popd
+          pushd examples/failing-test
+          ! bazel test //:all > test.log || exit 1
+          ls bazel-testlogs/*/test.outputs/outputs.zip
+          grep -E "//:success-test +PASSED" test.log
+          grep -E "//:failing-test +FAILED" test.log
+          popd
 
       - name: Upload Bazel artifacts
         uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: renode-bazel-artifacts
-          path: bazel-testlogs*/**/*
+          path: examples/*/bazel-testlogs*/**/*
