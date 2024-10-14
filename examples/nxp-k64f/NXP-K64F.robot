@@ -15,9 +15,7 @@ Create Machine
     Execute Command           mach create
     Execute Command           machine LoadPlatformDescription @platforms/cpus/nxp-k6xf.repl
 
-    Execute Command           echo $CWD
-
-    Execute Command           sysbus LoadELF @${elf}
+    Execute Command           sysbus LoadELF @${EXECDIR}/${elf}
 
     Create Terminal Tester    ${UART}
 
