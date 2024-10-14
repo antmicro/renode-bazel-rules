@@ -1,0 +1,16 @@
+load("@rules_renode//renode:defs.bzl", "renode_test")
+
+renode_test(
+    name = "cortex-r52-test",
+    timeout = "short",
+    robot_test = "test.robot",
+    tags = [
+        "no-sandbox",
+    ],
+    variables = {
+        "ELF": "$(location @cortex-r52-hirtos-hello//file)",
+    },
+    deps = [
+        "@cortex-r52-hirtos-hello//file",
+    ],
+)

@@ -1,0 +1,23 @@
+module(
+    name = "rules_renode",
+    version = "0.1.0",
+)
+
+bazel_dep(name = "platforms", version = "0.0.8")
+bazel_dep(name = "rules_python", version = "0.36.0")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    python_version = "3.11",
+)
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    hub_name = "renode_test_python_deps",
+    python_version = "3.11",
+    requirements_lock = "//renode:renode_requirements_lock.txt",
+)
+use_repo(pip, "renode_test_python_deps")
+
+renode = use_extension("@rules_renode//renode:extensions.bzl", "renode")
+use_repo(renode, renode_toolchains_default = "renode_toolchains")

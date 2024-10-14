@@ -1,0 +1,23 @@
+load("@rules_renode//renode:defs.bzl", "renode_test")
+
+renode_test(
+    name = "failing-test",
+    timeout = "short",
+    robot_test = "test.robot",
+    tags = [
+        "no-sandbox",
+    ],
+)
+
+renode_test(
+    name = "success-test",
+    timeout = "short",
+    additional_arguments = [
+        "--exclude",
+        "failing_test_tag",
+    ],
+    robot_test = "test.robot",
+    tags = [
+        "no-sandbox",
+    ],
+)
