@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 6,
-  "moduleFileHash": "92c60957183d1dcca54085d449a88bc3f39eab9c576634d8474d707d44ffb6cc",
+  "moduleFileHash": "0743bf1e5ce528024970450a578e5c23e32e93154311e3589dcb5ef291b9821e",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -54,21 +54,21 @@
             "column": 0
           },
           "imports": {
-            "nxp_k64f--zephyr_basic_uart.elf": "nxp_k64f--zephyr_basic_uart.elf"
+            "cortex-r52-hirtos-hello": "cortex-r52-hirtos-hello"
           },
           "devImports": [],
           "tags": [
             {
               "tagName": "@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
               "attributeValues": {
-                "sha256": "db432c3efa414a365dc55cdbffb29ed827914d7ef2d7a605cad981a2b349042d",
-                "url": "https://dl.antmicro.com/projects/renode/nxp_k64f--zephyr_basic_uart.elf-s_618844-2d588c6899efaae76a7a27136fd8cff667bbcb6f",
-                "name": "nxp_k64f--zephyr_basic_uart.elf"
+                "sha256": "73d6dea92d5bcff9c29b4e5c76aba5a691797cd68d458c243855055756f8093c",
+                "url": "https://dl.antmicro.com/projects/renode/cortex-r52--hirtos-hello.elf-s_140356-d44a0b48e22a17fa8cb83ef08243ec23942812c0",
+                "name": "cortex-r52-hirtos-hello"
               },
               "devDependency": false,
               "location": {
                 "file": "@@//:MODULE.bazel",
-                "line": 19,
+                "line": 18,
                 "column": 10
               }
             }

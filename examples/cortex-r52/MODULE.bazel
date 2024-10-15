@@ -15,9 +15,8 @@ use_repo(renode, "renode_toolchains")
 register_toolchains("@renode_toolchains//:all")
 
 http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
-
 http_file(
-    name = "nxp_k64f--zephyr_basic_uart.elf",
-    sha256 = "db432c3efa414a365dc55cdbffb29ed827914d7ef2d7a605cad981a2b349042d",
-    url = "https://dl.antmicro.com/projects/renode/nxp_k64f--zephyr_basic_uart.elf-s_618844-2d588c6899efaae76a7a27136fd8cff667bbcb6f",
+    name = "cortex-r52-hirtos-hello",
+    sha256 = "73d6dea92d5bcff9c29b4e5c76aba5a691797cd68d458c243855055756f8093c",
+    url = "https://dl.antmicro.com/projects/renode/cortex-r52--hirtos-hello.elf-s_140356-d44a0b48e22a17fa8cb83ef08243ec23942812c0",
 )

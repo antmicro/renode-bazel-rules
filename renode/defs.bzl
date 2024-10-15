@@ -39,29 +39,42 @@ def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prep
 def _renode_test_impl(ctx):
     renode_runtime = ctx.toolchains[RENODE_TOOLCHAIN_TYPE].renode_runtime
     python_runtime = ctx.toolchains[PYTHON_TOOLCHAIN_TYPE].py3_runtime
-    robot_variable = ctx.attr.elf_file_variable[DefaultInfo].files
     python_deps = ctx.attr._python_deps
+
+    depfiles = [ctx.file.robot_test]
 
     robot_command_parts = [
         renode_runtime.renode_test.path,
+        "--renode-config",
+        "$TEST_TMPDIR/renode_config",
         "-r",
         "$TEST_UNDECLARED_OUTPUTS_DIR",
+        "--show-log",
         ctx.file.robot_test.path,
     ]
-    if robot_variable:
-        robot_command_parts += [
-            "--variable",
-            "elf_file:{}".format(robot_variable.to_list()[0].path),
-        ]
+    robot_command_parts += ctx.attr.additional_arguments
+
+    variable_names = ctx.attr.files_variable_names
+    file_targets = ctx.attr.files
+    if len(variable_names) != len(file_targets):
+        fail("Length of files_variable_names and files must be equal.")
+    else: 
+        for (name, target) in zip(variable_names, file_targets):
+            files = target[DefaultInfo].files.to_list()
+            if len(files) != 1:
+                fail("It's allowed to pass only a single file to a variable, name of the variable: {}".format(name))
+                continue
+            file = files[0]
+            robot_command_parts.append("--variable")
+            robot_command_parts.append("{}:{}".format(name, file.path))
+            depfiles.append(file)
 
     path = [python_runtime.interpreter.dirname]
     pythonpath = _python_paths(python_deps)
 
-    depfiles = [ctx.file.robot_test]
     depsets = [
         renode_runtime.files,
         python_runtime.files,
-        robot_variable,
     ]
     depsets += _python_deps(python_deps)
 
@@ -78,12 +91,24 @@ renode_test = rule(
     implementation = _renode_test_impl,
     test = True,
     attrs = {
-        "robot_test": attr.label(allow_single_file = True, mandatory = True),
-        "elf_file_variable": attr.label(allow_single_file = True),
+        "robot_test": attr.label(
+            allow_single_file = True,
+            mandatory = True,
+        ),
+        "files_variable_names": attr.string_list(
+            doc = "Names of variables with values defined in the files attribute",
+        ),
+        "files": attr.label_list(
+            allow_files = True,
+            doc = "Files that are values of passed variables with names defined in the files_variable_names attribute",
+        ),
+        "additional_arguments": attr.string_list(
+            doc = "Additional arguments passed to the Robot test",
+        ),
         "_python_deps": attr.label_list(
             default = all_requirements,
             allow_files = True,
-            providers = [],
+            providers = [PyInfo],
         ),
     },
     toolchains = [
