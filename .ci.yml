@@ -4,7 +4,7 @@ stages:
 .common_triggers: &common_triggers
   only:
     variables:
-      - $CI_COMMIT_REF_NAME == "main"
+      - $CI_COMMIT_REF_NAME == "master"
       - $CI_PIPELINE_SOURCE == "merge_request"
 
 .install_bazel: &install_bazel |-
