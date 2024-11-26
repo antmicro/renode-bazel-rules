@@ -7,10 +7,7 @@ renode_test(
     tags = [
         "no-sandbox",
     ],
-    variables = {
-        "ELF": "$(location @cortex-r52-hirtos-hello//file)",
+    variables_with_label = {
+        "ELF": "@cortex-r52-hirtos-hello//file",
     },
-    deps = [
-        "@cortex-r52-hirtos-hello//file",
-    ],
 )

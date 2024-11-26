@@ -55,9 +55,15 @@ def _renode_test_impl(ctx):
     ]
     robot_command_parts += ctx.attr.additional_arguments
 
-    for (name, value) in ctx.attr.variables.items():
+    for (name, label) in ctx.attr.variables_with_label.items():
+        if len(label.files.to_list()) != 1:
+            fail("The {} target must contains only a single file".format(name))
+
         robot_command_parts.append("--variable")
-        robot_command_parts.append("{}:{}".format(name, ctx.expand_location(value)))
+        rlocation = ctx.expand_location("$(rlocationpath {})".format(label.label), targets = [label])
+        robot_command_parts.append("{}:`rlocation {}`".format(name, rlocation))
+
+    depfiles += ctx.files.variables_with_label
 
     path = [python_runtime.interpreter.dirname]
     pythonpath = _python_paths(python_deps)
@@ -89,8 +95,9 @@ renode_test = rule(
             allow_files = True,
             doc = "Dependencies available in the runtime",
         ),
-        "variables": attr.string_dict(
-            doc = "Variables passed to renode-test, location templates in values are expended",
+        "variables_with_label": attr.string_keyed_label_dict(
+            doc = "Variables containing Label or File passed to the Robot test",
+            allow_files = True,
         ),
         "additional_arguments": attr.string_list(
             doc = "Additional arguments passed to renode-test",

@@ -41,6 +41,6 @@ Wait For Hello Sample
 Should Run Hello Sample On One Core
     Create Machine
     ${tester}=                      Create Terminal Tester  ${UART0}  defaultPauseEmulation=true
-    Execute Command                 sysbus LoadELF @${EXECDIR}/${ELF}
+    Execute Command                 sysbus LoadELF "${ELF}"
 
     Wait For Hello Sample           ${tester}
