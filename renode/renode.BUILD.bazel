@@ -22,3 +22,43 @@ filegroup(
     name = "python_requirements_dependencies",
     srcs = glob([_RENODE_DIRECTORY + "tools/**/requirements.txt"]),
 )
+
+filegroup(
+    name = "renode_dpi_cc_library_srcs",
+    srcs =
+        glob([
+            _COSIMULATION_DIRECTORY + p
+            for p in [
+                "libs/socket-cpp/**/*.cpp",
+                "src/communication/socket_channel.cpp",
+                "src/renode_dpi.cpp",
+                "libs/socket-cpp/**/*.h",
+                "src/communication/*.h",
+                "src/*.h",
+            ]
+        ]),
+)
+filegroup(
+    name = "renode_dpi_cc_library_hdrs",
+    srcs =
+        glob([
+            _COSIMULATION_DIRECTORY + p
+            for p in [
+                "src/renode_dpi.h",
+                "hdl/includes/*",
+            ]
+        ]),
+)
+
+# There are no Verilog rules that supports bzlmod.
+# These filegroups below can be used to create a relevant target in your project.
+filegroup(
+    name = "renode_dpi_verilog_library_srcs",
+    srcs = glob([_COSIMULATION_DIRECTORY + "hdl/renode_pkg.sv"]) +
+           glob([_COSIMULATION_DIRECTORY + "hdl/imports/*.sv"]) +
+           glob([_COSIMULATION_DIRECTORY + "hdl/modules/**/*.sv"]),
+)
+filegroup(
+    name = "renode_dpi_verilog_library_hdrs",
+    srcs = glob([_COSIMULATION_DIRECTORY + "hdl/includes/*.svh"]),
+)
