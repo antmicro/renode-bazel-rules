@@ -1,0 +1,24 @@
+load("@rules_renode//renode:toolchain.bzl", "renode_toolchain")
+
+package(default_visibility = ["//visibility:public"])
+
+_RENODE_DIRECTORY = "renode_*/"
+_COSIMULATION_DIRECTORY = _RENODE_DIRECTORY + "**/plugins/**/IntegrationLibrary/"
+
+filegroup(
+    name = "runtime",
+    srcs = glob([_RENODE_DIRECTORY + "*"]),
+)
+renode_toolchain(
+    name = "toolchain_impl",
+    runtime = [":runtime"],
+)
+
+filegroup(
+    name = "python_requirements",
+    srcs = glob([_RENODE_DIRECTORY + "tests/requirements.txt"]),
+)
+filegroup(
+    name = "python_requirements_dependencies",
+    srcs = glob([_RENODE_DIRECTORY + "tools/**/requirements.txt"]),
+)

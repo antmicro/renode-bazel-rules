@@ -2,9 +2,9 @@ load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 
 compile_pip_requirements(
     name = "renode_test_python_requirements",
-    src = "@renode_toolchains_default//:python_requirements",
+    src = "@renode_default_toolchain//:python_requirements",
     data = [
-        "@renode_toolchains_default//:python_requirements_dependencies",
+        "@renode_default_toolchain//:python_requirements_dependencies",
     ],
     extra_args = [
         "--strip-extras",
