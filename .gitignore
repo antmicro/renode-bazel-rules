@@ -3,3 +3,4 @@ bazel-*
 
 examples/*/*.log
 MODULE.bazel.lock
+examples/local-renode/renode

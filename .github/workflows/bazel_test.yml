@@ -16,16 +16,9 @@ jobs:
         env:
           USE_BAZEL_VERSION: 7.4.1
         run: |
-          pushd examples/cortex-r52
-          bazelisk test //:all
-          ls bazel-testlogs/*/test.outputs/outputs.zip
-          popd
-          pushd examples/failing-test
-          ! bazelisk test //:all > test.log || exit 1
-          ls bazel-testlogs/*/test.outputs/outputs.zip
-          grep -E "//:success-test +PASSED" test.log
-          grep -E "//:failing-test +FAILED" test.log
-          popd
+          for file in examples/*/test_example.sh; do
+          (cd $(dirname "$file"); ./$(basename "$file"))
+          done
 
       - name: Upload Bazel artifacts
         uses: actions/upload-artifact@v4

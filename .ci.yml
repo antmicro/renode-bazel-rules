@@ -15,31 +15,7 @@ variables:
   wget -nv "$BAZELISK_URL" -O /usr/local/bin/bazelisk && \
   chmod +x /usr/local/bin/bazelisk
 
-.default_bazel_version: &default_bazel_version
-  USE_BAZEL_VERSION: 7.4.1
-
-test_examples:
-  image: debian:12-slim
-  stage: test
-  <<: *common_triggers
-  variables:
-    <<: *default_bazel_version
-  before_script:
-    - *install_bazelisk
-  script:
-    - useradd -m non_root
-    - chmod a+w -R .
-    - pushd examples/cortex-r52
-    # rules_python doesn't support a hermetic toolchain run by root
-    - su non_root -c "bazelisk test //:all"
-    - ls bazel-testlogs/*/test.outputs/outputs.zip
-    - popd
-    - pushd examples/failing-test
-    - su non_root -c "! bazelisk test //:all > test.log || exit 1"
-    - ls bazel-testlogs/*/test.outputs/outputs.zip
-    - grep -E "//:success-test +PASSED" test.log
-    - grep -E "//:failing-test +FAILED" test.log
-    - popd
+.examples_artifacts: &examples_artifacts
   after_script:
     - mkdir artifacts
     - cp -LR examples/*/bazel-testlogs/* artifacts
@@ -48,3 +24,21 @@ test_examples:
         always
       paths:
         - artifacts
+
+.default_bazel_version: &default_bazel_version
+  variables:
+    USE_BAZEL_VERSION: 7.4.1
+
+test_examples:
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  stage: test
+  <<: *common_triggers
+  <<: *default_bazel_version
+  before_script:
+    - *install_bazelisk
+    - apt -y install git automake cmake autoconf libtool g++ coreutils policykit-1
+  script:
+    - for file in examples/*/test_example.sh; do
+    - (cd $(dirname "$file"); ./$(basename "$file"))
+    - done
+  <<: *examples_artifacts

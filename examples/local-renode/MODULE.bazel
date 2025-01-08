@@ -21,6 +21,10 @@ local_path_override(
 )
 
 renode = use_extension("@rules_renode//renode:extensions.bzl", "renode")
+renode.local_build(
+    name = "renode_toolchain",
+    path = "./renode",
+)
 use_repo(renode, "renode_toolchains")
 
 register_toolchains("@renode_toolchains//:all")

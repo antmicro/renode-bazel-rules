@@ -3,6 +3,17 @@ module(
     version = "0.0.0",
 )
 
+# Python is only overriden to set the ignore_root_user_error argument.
+# It enables running the example in a CI as root.
+bazel_dep(name = "rules_python", version = "0.36.0")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    ignore_root_user_error = True,
+    python_version = "3.11",
+)
+use_repo(python)
+
 bazel_dep(name = "rules_renode", version = "0.0.0")
 local_path_override(
     module_name = "rules_renode",
@@ -11,6 +22,13 @@ local_path_override(
 
 renode = use_extension("@rules_renode//renode:extensions.bzl", "renode")
 use_repo(renode, "renode_toolchains")
+
+# Use non-default version of Renode
+renode.download_portable(
+    name = "renode_toolchain",
+    sha256 = "73fe07a8fd0849a9f30c02bd7ce7c7dd67d11070365f41ddd6145a477ebdea65",
+    url = "https://builds.renode.io/renode-1.15.3+20250128git85f0aac72.linux-portable-dotnet.tar.gz",
+)
 
 register_toolchains("@renode_toolchains//:all")
 
