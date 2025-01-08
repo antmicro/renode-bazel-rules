@@ -19,5 +19,9 @@ pip.parse(
 )
 use_repo(pip, "renode_test_python_deps")
 
-renode = use_extension("@rules_renode//renode:extensions.bzl", "renode")
+renode = use_extension(
+    "@rules_renode//renode:extensions.bzl",
+    "renode",
+    dev_dependency = True,
+)
 use_repo(renode, "renode_default_toolchain")

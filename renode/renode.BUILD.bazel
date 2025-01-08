@@ -2,12 +2,9 @@ load("@rules_renode//renode:toolchain.bzl", "renode_toolchain")
 
 package(default_visibility = ["//visibility:public"])
 
-_RENODE_DIRECTORY = "renode_*/"
-_COSIMULATION_DIRECTORY = _RENODE_DIRECTORY + "**/plugins/**/IntegrationLibrary/"
-
 filegroup(
     name = "runtime",
-    srcs = glob([_RENODE_DIRECTORY + "*"]),
+    srcs = glob([_RENODE_DIRECTORY + "*"], allow_empty=False),
 )
 renode_toolchain(
     name = "toolchain_impl",
@@ -16,11 +13,11 @@ renode_toolchain(
 
 filegroup(
     name = "python_requirements",
-    srcs = glob([_RENODE_DIRECTORY + "tests/requirements.txt"]),
+    srcs = glob([_RENODE_DIRECTORY + "tests/requirements.txt"], allow_empty=False),
 )
 filegroup(
     name = "python_requirements_dependencies",
-    srcs = glob([_RENODE_DIRECTORY + "tools/**/requirements.txt"]),
+    srcs = glob([_RENODE_DIRECTORY + "tools/**/requirements.txt"], allow_empty=False),
 )
 
 filegroup(
@@ -36,7 +33,7 @@ filegroup(
                 "src/communication/*.h",
                 "src/*.h",
             ]
-        ]),
+        ], allow_empty=False),
 )
 filegroup(
     name = "renode_dpi_cc_library_hdrs",
@@ -47,18 +44,18 @@ filegroup(
                 "src/renode_dpi.h",
                 "hdl/includes/*",
             ]
-        ]),
+        ], allow_empty=False),
 )
 
 # There are no Verilog rules that supports bzlmod.
 # These filegroups below can be used to create a relevant target in your project.
 filegroup(
     name = "renode_dpi_verilog_library_srcs",
-    srcs = glob([_COSIMULATION_DIRECTORY + "hdl/renode_pkg.sv"]) +
-           glob([_COSIMULATION_DIRECTORY + "hdl/imports/*.sv"]) +
-           glob([_COSIMULATION_DIRECTORY + "hdl/modules/**/*.sv"]),
+    srcs = glob([_COSIMULATION_DIRECTORY + "hdl/renode_pkg.sv"], allow_empty=False) +
+           glob([_COSIMULATION_DIRECTORY + "hdl/imports/*.sv"], allow_empty=False) +
+           glob([_COSIMULATION_DIRECTORY + "hdl/modules/**/*.sv"], allow_empty=False),
 )
 filegroup(
     name = "renode_dpi_verilog_library_hdrs",
-    srcs = glob([_COSIMULATION_DIRECTORY + "hdl/includes/*.svh"]),
+    srcs = glob([_COSIMULATION_DIRECTORY + "hdl/includes/*.svh"], allow_empty=False),
 )

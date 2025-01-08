@@ -1,0 +1,12 @@
+load("@rules_renode//renode:defs.bzl", "renode_test")
+
+renode_test(
+    name = "success-test",
+    timeout = "short",
+    robot_test = "test.robot",
+    tags = [
+        # Usage of local_build isn't hermetic and requires a runtime.
+        # The local tag allows usage of Common Language Runtime (.NET) from host.
+        "local",
+    ],
+)
