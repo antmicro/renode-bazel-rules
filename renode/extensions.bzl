@@ -11,8 +11,8 @@ def _renode_impl(module_ctx):
     default_toolchain = "renode_default_toolchain"
     portable_renode_repository(
         name = default_toolchain,
-        url = "https://builds.renode.io/renode-1.15.3+20241112git6e850cb52.linux-portable.tar.gz",
-        sha256 = "cc6d2dce92a4542f15958ff7562343119e19a4852513fcab88132efe02522604",
+        url = "https://builds.renode.io/renode-1.15.3+20250113gite77cf1237.linux-portable-dotnet.tar.gz",
+        sha256 = "a6242b628b49b8a254358fe399ad49f0838c708abe44c551321c9555b7bff873",
     )
 
     renode_toolchains_repository(
