@@ -4,9 +4,6 @@ renode_test(
     name = "failing-test",
     timeout = "short",
     robot_test = "test.robot",
-    tags = [
-        "no-sandbox",
-    ],
 )
 
 renode_test(
@@ -17,7 +14,4 @@ renode_test(
         "failing_test_tag",
     ],
     robot_test = "test.robot",
-    tags = [
-        "no-sandbox",
-    ],
 )

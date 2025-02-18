@@ -4,9 +4,6 @@ renode_test(
     name = "cortex-r52-test",
     timeout = "short",
     robot_test = "test.robot",
-    tags = [
-        "no-sandbox",
-    ],
     variables_with_label = {
         "ELF": "@cortex-r52-hirtos-hello//file",
     },

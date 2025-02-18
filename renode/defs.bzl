@@ -23,6 +23,7 @@ def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prep
     script_parts = [
         _prepend_path_env("PATH", path_prepend),
         _prepend_path_env("PYTHONPATH", pythonpath_prepend),
+        "export HOME=$TEST_TMPDIR",
         command,
     ]
     wrapper = ctx.actions.declare_file(ctx.label.name + "_wrapper.sh")
