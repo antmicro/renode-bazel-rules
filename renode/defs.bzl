@@ -45,6 +45,10 @@ def _renode_test_impl(ctx):
     depfiles = [
         ctx.file.robot_test,
     ] + ctx.files.deps
+    depsets = [
+        renode_runtime.files,
+        python_runtime.files,
+    ]
 
     robot_command_parts = [
         renode_runtime.renode_test.path,
@@ -60,6 +64,7 @@ def _renode_test_impl(ctx):
         if len(label.files.to_list()) != 1:
             fail("The {} target must contains only a single file".format(name))
 
+        depsets.append(label.default_runfiles.files)
         robot_command_parts.append("--variable")
         rlocation = ctx.expand_location("$(rlocationpath {})".format(label.label), targets = [label])
         robot_command_parts.append("{}:`rlocation {}`".format(name, rlocation))
@@ -69,10 +74,6 @@ def _renode_test_impl(ctx):
     path = [python_runtime.interpreter.dirname]
     pythonpath = _python_paths(python_deps)
 
-    depsets = [
-        renode_runtime.files,
-        python_runtime.files,
-    ]
     depsets += _python_deps(python_deps)
 
     return [_command_using_python_executable(
