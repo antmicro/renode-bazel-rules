@@ -1,6 +1,6 @@
 # Bazel rules for Renode
 
-Copyright (c) 2021-2024 [Antmicro](https://www.antmicro.com/)
+Copyright (c) 2021-2025 [Antmicro](https://www.antmicro.com/)
 
 This repository contains rules for running Renode tests inside Bazel and provides use case examples.
 
