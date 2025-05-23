@@ -1,0 +1,19 @@
+load("@rules_renode//renode:defs.bzl", "renode_interactive")
+
+# An example showing how to launch an interactive Renode Monitor
+renode_interactive(
+    name = "renode-interactive-session",
+    resc = "test.resc",
+    arguments = [
+        "--console",
+    ],
+    variables_with_label = {
+        "ADDITIONAL_FILE": "additional_file.resc",
+    },
+    variables = {
+        "CPU_PC": "0x100",
+    },
+    deps = [
+        "test.repl",
+    ],
+)

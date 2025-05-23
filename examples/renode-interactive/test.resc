@@ -1,0 +1,5 @@
+i $ORIGIN/test.repl
+
+cpu PC $CPU_PC
+
+i $ADDITIONAL_FILE

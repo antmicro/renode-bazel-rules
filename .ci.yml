@@ -38,6 +38,10 @@ test_examples:
     - *install_bazelisk
     - apt -y install git automake cmake autoconf libtool g++ coreutils policykit-1
   script:
+    - pushd examples/renode-interactive
+    - bazelisk run //:all > test.log
+    - grep "TEST OK" test.log
+    - popd
     - pushd examples/cortex-r52
     - bazelisk test //:all
     - ls bazel-testlogs/*/test.outputs/outputs.zip
