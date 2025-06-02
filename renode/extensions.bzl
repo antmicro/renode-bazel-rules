@@ -2,8 +2,8 @@ load("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
 
 _DEFAULT_PORTABLE_RENODE = {
     "name": "renode_default_toolchain",
-    "url": "https://builds.renode.io/renode-1.15.3+20250113gite77cf1237.linux-portable-dotnet.tar.gz",
-    "sha256": "a6242b628b49b8a254358fe399ad49f0838c708abe44c551321c9555b7bff873",
+    "url": "https://builds.renode.io/renode-1.15.3+20250530git063124cbc.linux-portable-dotnet.tar.gz",
+    "sha256": "f4c7a4c5b7d852c633be0a309698cae34c3e0c4c801678d60c314d82597b26d4",
 }
 
 def _portable_renode_toolchain_repository_impl(repository_ctx):
