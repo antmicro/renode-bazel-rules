@@ -53,6 +53,16 @@ def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prep
     )
     return DefaultInfo(executable = wrapper, runfiles = runfiles)
 
+# Add deps to internal Renode path.
+# This will help us to resolve runtime dependencies if they are referenced from other scripts.
+# This should only be needed if we are using a mix of generated and source files.
+def _add_deps_to_renode_path(ctx):
+    script_parts = []
+    for dep in ctx.attr.deps:
+        rlocation = _rlocationpath_str(ctx, dep.label, dep)
+        script_parts.append("`rlocation {} | xargs dirname`".format(rlocation))
+    return script_parts
+
 def _rlocationpath_str(ctx, label, target):
     return ctx.expand_location("$(rlocationpath {})".format(label), targets = [target])
 
@@ -80,14 +90,27 @@ def _renode_test_impl(ctx):
         python_runtime.files,
     ]
 
-    robot_command_parts = [
-        renode_runtime.renode_test.path,
+    robot_command_parts = [renode_runtime.renode_test.path]
+
+    # To import the path into the Robot tests, you might use a script like this one;
+    # Set Search Path
+    #     @{_RENODE_SEARCH_PATHS_LIST}    Split String  ${_RENODE_SEARCH_PATHS}  separator=:
+    #     FOR  ${path}  IN  @{_RENODE_SEARCH_PATHS_LIST}
+    #         Execute Command             path add "${path}"
+    #     END
+
+    path_deps = _add_deps_to_renode_path(ctx)
+    robot_command_parts.append("--variable")
+    robot_command_parts.append("_RENODE_SEARCH_PATHS:{}".format(":".join(path_deps)))
+
+    robot_command_parts += [
         "--renode-config",
         "$TEST_TMPDIR/renode_config",
         "-r",
         "$TEST_UNDECLARED_OUTPUTS_DIR",
-        ctx.file.robot_test.path,
     ]
+    rlocation = "`rlocation {}`".format(_rlocationpath_str(ctx, ctx.attr.robot_test.label, ctx.attr.robot_test))
+    robot_command_parts.append(rlocation)
     robot_command_parts += ctx.attr.additional_arguments
 
     for (name, rlocation) in _parse_file_variables_with_label(
@@ -158,6 +181,8 @@ def _renode_interactive_impl(ctx):
     script_parts = [renode_runtime.renode.path]
     script_parts += ctx.attr.arguments
 
+    script_parts.extend(["-e \"path add \\\"{}\\\"\"".format(path) for path in _add_deps_to_renode_path(ctx)])
+
     for (name, rlocation) in _parse_file_variables_with_label(
         ctx,
         depsets,
@@ -172,7 +197,8 @@ def _renode_interactive_impl(ctx):
 
     if ctx.file.resc:
         depfiles.append(ctx.file.resc)
-        script_parts.append("-e \"i @" + ctx.file.resc.path + "\"")
+        rlocation = "`rlocation {}`".format(_rlocationpath_str(ctx, ctx.attr.resc.label, ctx.attr.resc))
+        script_parts.append("-e \"i \\\"" + rlocation + "\\\" \"")
 
     wrapper = ctx.actions.declare_file(ctx.label.name + "_wrapper.sh")
 
