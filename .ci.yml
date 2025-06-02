@@ -39,7 +39,7 @@ test_examples:
     - apt -y install git automake cmake autoconf libtool g++ coreutils policykit-1
   script:
     - pushd examples/renode-interactive
-    - bazelisk run //:all > test.log
+    - bazelisk run //:all | tee test.log
     - grep "TEST OK" test.log
     - popd
     - pushd examples/cortex-r52
@@ -47,7 +47,7 @@ test_examples:
     - ls bazel-testlogs/*/test.outputs/outputs.zip
     - popd
     - pushd examples/failing-test
-    - "! bazelisk test //:all > test.log || exit 1"
+    - "! bazelisk test //:all | tee test.log || exit 1"
     - ls bazel-testlogs/*/test.outputs/outputs.zip
     - grep -E "//:success-test +PASSED" test.log
     - grep -E "//:failing-test +FAILED" test.log
