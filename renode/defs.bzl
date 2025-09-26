@@ -34,6 +34,17 @@ source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/
 # --- end runfiles.bash initialization v3 ---
 """
 
+def _get_allowed_to_fail_wrapper(robot_command):
+    return """
+set +e
+{command}
+RESULT=$?
+if [ $RESULT -ne 0 ]; then
+    echo "Test failed but treating as success due to allowed_to_fail tag"
+fi
+exit 0
+""".format(command=robot_command)
+
 def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prepend, depsets, depfiles):
     script_parts = [
         _prepend_path_env("PATH", path_prepend),
@@ -121,6 +132,12 @@ def _renode_test_impl(ctx):
         robot_command_parts.append("--variable")
         robot_command_parts.append("{}:`rlocation {}`".format(name, rlocation))
 
+    robot_command = " ".join(robot_command_parts)
+    if "allowed_to_fail" in ctx.attr.tags:
+        command = _get_allowed_to_fail_wrapper(robot_command)
+    else:
+        command = robot_command
+
     depfiles += ctx.files.variables_with_label
 
     path = [python_runtime.interpreter.dirname]
@@ -130,7 +147,7 @@ def _renode_test_impl(ctx):
 
     return [_command_using_python_executable(
         ctx,
-        " ".join(robot_command_parts),
+        command,
         path,
         pythonpath,
         depsets,
