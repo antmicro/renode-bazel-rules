@@ -1,0 +1,52 @@
+module(
+    name = "renode_bazel_examples",
+    version = "0.0.0",
+)
+
+# Python toolchain
+bazel_dep(name = "rules_python", version = "0.36.0")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    ignore_root_user_error = True,  # Added to make it work in the internal CI
+    python_version = "3.11",
+)
+use_repo(python)
+
+# Renode
+bazel_dep(name = "rules_renode", version = "0.0.0")
+local_path_override(
+    module_name = "rules_renode",
+    path = "../..",
+)
+
+renode = use_extension("@rules_renode//renode:extensions.bzl", "renode")
+renode.download_portable(
+    name = "renode_toolchain",
+    sha256 = "c1d6f50596a2fb410b0a4bd05a5a1e9cf5d83c49818d43a0c40b781812413170",
+    url = "https://builds.renode.io/renode-1.16.0+20251013gitab4b8f738.linux-portable-dotnet.tar.gz",
+)
+use_repo(renode, "renode_toolchains", renode_toolchain = "renode_toolchain")
+
+register_toolchains("@renode_toolchains//:all")
+
+# Download demo artifacts
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "bin",
+    sha256 = "affd25838952759662054da13cc64112ea2066993dd1c4cadb198b0a565f00e3",
+    url = "https://dl.antmicro.com/projects/renode/zynq-fastvdma_vmlinux-s_13611036-802d102e9341668636631447e99389f79043c18d",
+)
+
+http_file(
+    name = "rootfs",
+    sha256 = "97989b7d46a17cb19e44974d38fecede0504ac62e9bf1a2beb75935857b5d943",
+    url = "https://dl.antmicro.com/projects/renode/zynq-fastvdma_rootfs.ext2-s_33554432-7a53506ed3e6cdaf247280ad7025ff1aa4cb98c5",
+)
+
+http_file(
+    name = "dtb",
+    sha256 = "943f62835be5fea5b1c02b24579445d37c498e9399939d82878e8ab9a50069d5",
+    url = "https://dl.antmicro.com/projects/renode/zynq-fastvdma.dtb-s_12284-4f3a630a9bce9e0984151b95e9efa581ef7525bf",
+)

@@ -1,0 +1,59 @@
+load("@rules_hdl//verilator:defs.bzl", "verilator_cc_library")
+load("@rules_hdl//verilog:defs.bzl", "verilog_library")
+
+package(default_visibility = ["//visibility:public"])
+
+verilog_library(
+    name = "renode_dpi_verilog_library",
+    srcs = ["@renode_toolchain//:renode_dpi_verilog_library_srcs"],
+    hdrs = ["@renode_toolchain//:renode_dpi_verilog_library_hdrs"],
+)
+
+verilog_library(
+    name = "dma_verilog",
+    srcs = ["DMATop.v"],
+    deps = [":renode_dpi_verilog_library"],
+)
+
+verilog_library(
+    name = "sim_verilog",
+    srcs = ["sim.sv"],
+    deps = [
+        ":dma_verilog",
+        ":renode_dpi_verilog_library",
+    ],
+)
+
+AXI_DATA_WIDTH = 32
+
+verilator_cc_library(
+    name = "sim_verilator",
+    module = ":sim_verilog",
+    module_top = "sim",
+    trace = True,
+    vopts = [
+        "--timing",
+        "-GAXIDataWidth=%d" % AXI_DATA_WIDTH,
+    ],
+)
+
+cc_library(
+    name = "renode_dpi_cc_library",
+    srcs = ["@renode_toolchain//:renode_dpi_cc_library_srcs"],
+    hdrs = ["@renode_toolchain//:renode_dpi_cc_library_hdrs"],
+)
+
+cc_binary(
+    name = "verilated",
+    srcs = ["sim-main-dpi.cpp"],
+    copts = [
+        "-std=c++20",
+        "-DVM_TRACE",
+    ],
+    # buildifier: leave-alone
+    # The order of dependencies must be preserved for the linking to work correctly.
+    deps = [
+        ":sim_verilator",
+        ":renode_dpi_cc_library",
+    ],
+)

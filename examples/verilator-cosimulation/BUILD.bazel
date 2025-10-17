@@ -1,0 +1,26 @@
+load("@rules_renode//renode:defs.bzl", "renode_interactive", "renode_test")
+
+common_variables = {
+    "bin": "@bin//file",
+    "rootfs": "@rootfs//file",
+    "dtb": "@dtb//file",
+    "dma_verilated": "//dpi-verilator-cosimulation:verilated",
+}
+
+renode_test(
+    name = "dma",
+    timeout = "moderate",
+    robot_test = "test_linux.robot",
+    variables_with_label = common_variables,
+    deps = [
+        "platform_linux.repl",
+        "platform_linux.resc",
+    ],
+)
+
+renode_interactive(
+    name = "dma-interactive",
+    resc = "platform_linux.resc",
+    variables_with_label = common_variables,
+    deps = ["platform_linux.repl"],
+)

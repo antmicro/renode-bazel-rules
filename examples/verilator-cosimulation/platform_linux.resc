@@ -1,0 +1,75 @@
+:name: FastVDMA Cosimulation on Zynq
+:description: This script runs Linux with built in FastVDMA driver on Zedboard.
+
+# The variables $bin, $rootfs, and $dtb and $dma_verilated must be defined before loading this Renode script.
+
+using sysbus
+$name?="Zynq-FastVDMA"
+mach create $name
+
+machine LoadPlatformDescription $ORIGIN/platform_linux.repl
+
+sysbus Redirect 0xC0000000 0x0 0x10000000
+
+### create externals ###
+showAnalyzer sysbus.uart1
+
+## set timer frequency ##
+ttc0 Frequency 33333333
+ttc1 Frequency 33333333
+
+py """
+import os
+
+# TEST_UNDECLARED_OUTPUTS_DIR is an environment variable set automatically by Bazel while testing
+
+def mc_get_verilator_log_path():
+    test_outputs_dir = os.getenv('TEST_UNDECLARED_OUTPUTS_DIR')
+    if test_outputs_dir:
+        print("\"%s/verilator.log\"" % test_outputs_dir)
+    else:
+        print("\"\"")
+
+def mc_generate_verilator_waveform_args():
+    cmd_line = ""
+    test_outputs_dir = os.getenv('TEST_UNDECLARED_OUTPUTS_DIR')
+    if test_outputs_dir:
+        cmd_line = '+vcd=%s/sim.vcd' % test_outputs_dir
+    print("\"%s\"" % cmd_line)
+
+def mc_concat_strings(a, b):
+    print("\"%s %s\"" % (a, b))
+"""
+
+## connect to simulation
+# we provide address in order to create socket connection
+$verilator_log_path=`get_verilator_log_path`
+emulation ConnectToCoSimulation $name "cosim_socket_connection" address="127.0.0.1" limitBuffer=1000 frequency=1000000 stdoutFile=$verilator_log_path
+connector Connect dma host.cosim_socket_connection
+
+$verilator_waveform_args=`generate_verilator_waveform_args`
+$verilator_args=`concat_strings "+RENODE_RECEIVER_PORT={0} +RENODE_SENDER_PORT={1} +RENODE_ADDRESS={2}" $verilator_waveform_args`
+host.cosim_socket_connection SimulationContext $verilator_args
+host.cosim_socket_connection SimulationFilePath $dma_verilated
+
+macro reset
+"""
+    ### set registers ###
+
+    cpu SetRegister 0 0x000
+    cpu SetRegister 1 0xD32 # board id
+    cpu SetRegister 2 0x100 # device tree address
+
+    ### load binaries ###
+
+    sysbus LoadELF $bin
+    sysbus LoadFdt $dtb 0x100 "console=ttyPS0,115200 root=/dev/ram0 rw earlyprintk initrd=0x1a000000,32M" false
+    sysbus ZeroRange 0x1a000000 0x800000
+    sysbus LoadBinary $rootfs 0x1a000000
+    
+    ### enabling uart1 ####
+
+    sysbus.uart1 WriteDoubleWord 0x0 0x114
+"""
+
+runMacro $reset

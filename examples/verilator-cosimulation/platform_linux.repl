@@ -1,0 +1,7 @@
+using "platforms/boards/zedboard.repl"
+
+dma: CoSimulated.CoSimulatedPeripheral @ sysbus <0x43c20000, +0x100>
+    createConnection: false
+    maxWidth: 32
+    cosimToRenodeSignalRange: <0, +2>
+    1 -> gic@31
