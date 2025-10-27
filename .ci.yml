@@ -25,19 +25,20 @@ variables:
       paths:
         - artifacts
 
-.default_bazel_version: &default_bazel_version
-  variables:
-    USE_BAZEL_VERSION: 7.4.1
-
 test_examples:
   image: mcr.microsoft.com/dotnet/sdk:8.0
   stage: test
   <<: *common_triggers
-  <<: *default_bazel_version
+  variables:
+    MIN_SIM_VCD_SIZE: 10000
   before_script:
     - *install_bazelisk
     - apt -y install git automake cmake autoconf libtool g++ coreutils policykit-1
   script:
+    - pushd examples/verilator-cosimulation
+    - bazelisk test //:all --nozip_undeclared_test_outputs
+    - test $(du bazel-testlogs/dma/test.outputs/sim.vcd | cut -f1) -gt $MIN_SIM_VCD_SIZE
+    - popd
     - pushd examples/renode-interactive
     - bazelisk run //:all | tee test.log
     - grep "TEST OK" test.log
