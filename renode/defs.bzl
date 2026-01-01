@@ -7,32 +7,26 @@ def _python_deps(targets):
     return [d for t in targets for d in (t[DefaultInfo].files, t[DefaultInfo].default_runfiles.files)]
 
 def _python_paths(targets):
-    imports = depset(transitive = [t[PyInfo].imports for t in targets])
+    runtime_import_paths = []
 
     # Rules Python doesn't provide an import path of the File type.
-    # We depend on Output Directory Layout.
-    return ["external/" + i for i in imports.to_list()]
+    # We infer based on a file path of the target.
+    for target in targets:
+        for import_path in target[PyInfo].imports.to_list():
+            for file in target[DefaultInfo].files.to_list():
+                if import_path in file.short_path:
+                    file_parts = file.short_path.partition(import_path)
+                    runtime_import_path = file_parts[0] + file_parts[1]
+                    if runtime_import_path not in runtime_import_paths:
+                        runtime_import_paths.append(runtime_import_path)
+                    break
+    return runtime_import_paths
 
 def _prepend_path_env(env_name, paths = []):
     if len(paths) == 0:
         return ""
     paths.append("${}".format(env_name))
     return "export {}=\"{}\"".format(env_name, ":".join(paths))
-
-def _get_runfiles_init():
-    return """
-# --- begin runfiles.bash initialization v3 ---
-# Copy-pasted from the Bazel Bash runfiles library v3.
-set -uo pipefail; set +e; f=bazel_tools/tools/bash/runfiles/runfiles.bash
-# shellcheck disable=SC1090
-source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null || \
-source "$(grep -sm1 "^$f " "${RUNFILES_MANIFEST_FILE:-/dev/null}" | cut -f2- -d' ')" 2>/dev/null || \
-source "$0.runfiles/$f" 2>/dev/null || \
-source "$(grep -sm1 "^$f " "$0.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null || \
-source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null || \
-{ echo>&2 "ERROR: cannot find $f"; exit 1; }; f=; set -e
-# --- end runfiles.bash initialization v3 ---
-"""
 
 def _get_allowed_to_fail_wrapper(robot_command):
     return """
@@ -43,14 +37,13 @@ if [ $RESULT -ne 0 ]; then
     echo "Test failed but treating as success due to allowed_to_fail tag"
 fi
 exit 0
-""".format(command=robot_command)
+""".format(command = robot_command)
 
 def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prepend, depsets, depfiles):
     script_parts = [
         _prepend_path_env("PATH", path_prepend),
         _prepend_path_env("PYTHONPATH", pythonpath_prepend),
         "export HOME=$TEST_TMPDIR",
-        _get_runfiles_init(),
         command,
     ]
     wrapper = ctx.actions.declare_file(ctx.label.name + "_wrapper.sh")
@@ -64,29 +57,28 @@ def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prep
     )
     return DefaultInfo(executable = wrapper, runfiles = runfiles)
 
+def _dirname(path):
+    return path.rpartition("/")[0]
+
+def _prepend_bash_pwd(path):
+    return "$PWD/{}".format(path)
+
 # Add deps to internal Renode path.
 # This will help us to resolve runtime dependencies if they are referenced from other scripts.
 # This should only be needed if we are using a mix of generated and source files.
 def _add_deps_to_renode_path(ctx):
-    script_parts = []
-    for dep in ctx.attr.deps:
-        rlocation = _rlocationpath_str(ctx, dep.label, dep)
-        script_parts.append("`rlocation {} | xargs dirname`".format(rlocation))
-    return script_parts
+    return [_prepend_bash_pwd(_dirname(dep.short_path)) for dep in ctx.files.deps]
 
-def _rlocationpath_str(ctx, label, target):
-    return ctx.expand_location("$(rlocationpath {})".format(label), targets = [target])
-
-def _parse_file_variables_with_label(ctx, depsets, variables_with_label):
-    names_and_rlocations = []
+def _parse_file_variables_with_label(depsets, variables_with_label):
+    names_and_short_path = []
     for (name, label) in variables_with_label.items():
-        if len(label.files.to_list()) != 1:
+        files = label.files.to_list()
+        if len(files) != 1:
             fail("The {} target must contains only a single file".format(name))
 
         depsets.append(label.default_runfiles.files)
-        rlocation = _rlocationpath_str(ctx, label.label, label)
-        names_and_rlocations.append((name, rlocation))
-    return names_and_rlocations
+        names_and_short_path.append((name, _prepend_bash_pwd(files[0].short_path)))
+    return names_and_short_path
 
 def _renode_test_impl(ctx):
     renode_runtime = ctx.toolchains[RENODE_TOOLCHAIN_TYPE].renode_runtime
@@ -95,13 +87,13 @@ def _renode_test_impl(ctx):
 
     depfiles = [
         ctx.file.robot_test,
-    ] + ctx.files.deps + ctx.files._bash_runfiles
+    ] + ctx.files.deps
     depsets = [
         renode_runtime.files,
         python_runtime.files,
     ]
 
-    robot_command_parts = [renode_runtime.renode_test.path]
+    robot_command_parts = [renode_runtime.renode_test.short_path]
 
     # To import the path into the Robot tests, you might use a script like this one;
     # Set Search Path
@@ -120,17 +112,15 @@ def _renode_test_impl(ctx):
         "-r",
         "$TEST_UNDECLARED_OUTPUTS_DIR",
     ]
-    rlocation = "`rlocation {}`".format(_rlocationpath_str(ctx, ctx.attr.robot_test.label, ctx.attr.robot_test))
-    robot_command_parts.append(rlocation)
+    robot_command_parts.append(ctx.file.robot_test.short_path)
     robot_command_parts += ctx.attr.additional_arguments
 
     for (name, rlocation) in _parse_file_variables_with_label(
-        ctx,
         depsets,
         ctx.attr.variables_with_label,
     ):
         robot_command_parts.append("--variable")
-        robot_command_parts.append("{}:`rlocation {}`".format(name, rlocation))
+        robot_command_parts.append("{}:{}".format(name, rlocation))
 
     robot_command = " ".join(robot_command_parts)
     if "allowed_to_fail" in ctx.attr.tags:
@@ -140,11 +130,10 @@ def _renode_test_impl(ctx):
 
     depfiles += ctx.files.variables_with_label
 
-    path = [python_runtime.interpreter.dirname]
+    path = [_prepend_bash_pwd(_dirname(python_runtime.interpreter.short_path))]
     pythonpath = _python_paths(python_deps)
 
     depsets += _python_deps(python_deps)
-
     return [_command_using_python_executable(
         ctx,
         command,
@@ -178,10 +167,6 @@ renode_test = rule(
             allow_files = True,
             providers = [PyInfo],
         ),
-        "_bash_runfiles": attr.label(
-            default = Label("@bazel_tools//tools/bash/runfiles"),
-            allow_single_file = True,
-        ),
     },
     toolchains = [
         RENODE_TOOLCHAIN_TYPE,
@@ -191,21 +176,20 @@ renode_test = rule(
 
 def _renode_interactive_impl(ctx):
     renode_runtime = ctx.toolchains[RENODE_TOOLCHAIN_TYPE].renode_runtime
-    depfiles = ctx.files.deps + ctx.files.variables_with_label + ctx.files._bash_runfiles
+    depfiles = ctx.files.deps + ctx.files.variables_with_label
     depsets = [renode_runtime.files]
 
     # Assemble the command
-    script_parts = [renode_runtime.renode.path]
+    script_parts = [renode_runtime.renode.short_path]
     script_parts += ctx.attr.arguments
 
     script_parts.extend(["-e \"path add \\\"{}\\\"\"".format(path) for path in _add_deps_to_renode_path(ctx)])
 
-    for (name, rlocation) in _parse_file_variables_with_label(
-        ctx,
+    for (name, short_path) in _parse_file_variables_with_label(
         depsets,
         ctx.attr.variables_with_label,
     ):
-        script_parts.append("-e \\${}=\\\"`rlocation {}`\\\"".format(name, rlocation))
+        script_parts.append("-e \\${}=\\\"{}\\\"".format(name, short_path))
 
     for (name, value) in ctx.attr.variables.items():
         # Delibarately don't encase this in quotes to prevent Renode from interpreting the variable as a string.
@@ -214,17 +198,13 @@ def _renode_interactive_impl(ctx):
 
     if ctx.file.resc:
         depfiles.append(ctx.file.resc)
-        rlocation = "`rlocation {}`".format(_rlocationpath_str(ctx, ctx.attr.resc.label, ctx.attr.resc))
-        script_parts.append("-e \"i \\\"" + rlocation + "\\\" \"")
+        script_parts.append("-e \"i \\\"{}\\\" \"".format(_prepend_bash_pwd(ctx.file.resc.short_path)))
 
     wrapper = ctx.actions.declare_file(ctx.label.name + "_wrapper.sh")
 
-    # Initialization steps go here (e.g runfiles init, required for rlocation)
-    script_init = _get_runfiles_init()
-
     ctx.actions.write(
         output = wrapper,
-        content = script_init + " ".join(script_parts),
+        content = " ".join(script_parts),
     )
     runfiles = ctx.runfiles(
         files = depfiles,
@@ -253,10 +233,6 @@ renode_interactive = rule(
         ),
         "variables": attr.string_dict(
             doc = "Variables passed to Renode. Quotation is needed if they contain whitespaces",
-        ),
-        "_bash_runfiles": attr.label(
-            default = Label("@bazel_tools//tools/bash/runfiles"),
-            allow_single_file = True,
         ),
     },
     toolchains = [
