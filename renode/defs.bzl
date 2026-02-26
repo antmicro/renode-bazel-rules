@@ -45,13 +45,15 @@ fi
 exit 0
 """.format(command=robot_command)
 
-def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prepend, depsets, depfiles):
+def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prepend, depsets, depfiles, after_script, vars):
     script_parts = [
         _prepend_path_env("PATH", path_prepend),
         _prepend_path_env("PYTHONPATH", pythonpath_prepend),
         "export HOME=$TEST_TMPDIR",
         _get_runfiles_init(),
+        "\n".join(vars),
         command,
+        "\n".join(after_script),
     ]
     wrapper = ctx.actions.declare_file(ctx.label.name + "_wrapper.sh")
     ctx.actions.write(
@@ -124,6 +126,7 @@ def _renode_test_impl(ctx):
     robot_command_parts.append(rlocation)
     robot_command_parts += ctx.attr.additional_arguments
 
+    vars = []
     for (name, rlocation) in _parse_file_variables_with_label(
         ctx,
         depsets,
@@ -131,6 +134,7 @@ def _renode_test_impl(ctx):
     ):
         robot_command_parts.append("--variable")
         robot_command_parts.append("{}:`rlocation {}`".format(name, rlocation))
+        vars.append("export {}=`rlocation {}`".format(name, rlocation))
 
     robot_command = " ".join(robot_command_parts)
     if "allowed_to_fail" in ctx.attr.tags:
@@ -152,6 +156,8 @@ def _renode_test_impl(ctx):
         pythonpath,
         depsets,
         depfiles,
+        ctx.attr.after_script,
+        vars,
     )]
 
 renode_test = rule(
@@ -172,6 +178,10 @@ renode_test = rule(
         ),
         "additional_arguments": attr.string_list(
             doc = "Additional arguments passed to renode-test",
+        ),
+        "after_script": attr.string_list(
+            doc = "Additional actions appended to wrapper script after running renode-test",
+            default = [""],
         ),
         "_python_deps": attr.label_list(
             default = all_requirements,
