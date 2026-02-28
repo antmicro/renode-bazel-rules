@@ -34,18 +34,28 @@ source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/
 # --- end runfiles.bash initialization v3 ---
 """
 
-def _get_allowed_to_fail_wrapper(robot_command):
+def _get_allowed_to_fail_wrapper(robot_command, after_script):
     return """
 set +e
 {command}
 RESULT=$?
+{after}
 if [ $RESULT -ne 0 ]; then
     echo "Test failed but treating as success due to allowed_to_fail tag"
 fi
 exit 0
-""".format(command=robot_command)
+""".format(command=robot_command, after="\n".join(after_script))
 
-def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prepend, depsets, depfiles, after_script, vars):
+def _run_command(robot_command, after_script):
+    return """
+set +e
+{command}
+RESULT=$?
+{after}
+exit $RESULT
+""".format(command=robot_command, after="\n".join(after_script))
+
+def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prepend, depsets, depfiles, vars):
     script_parts = [
         _prepend_path_env("PATH", path_prepend),
         _prepend_path_env("PYTHONPATH", pythonpath_prepend),
@@ -53,7 +63,6 @@ def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prep
         _get_runfiles_init(),
         "\n".join(vars),
         command,
-        "\n".join(after_script),
     ]
     wrapper = ctx.actions.declare_file(ctx.label.name + "_wrapper.sh")
     ctx.actions.write(
@@ -136,11 +145,12 @@ def _renode_test_impl(ctx):
         robot_command_parts.append("{}:`rlocation {}`".format(name, rlocation))
         vars.append("export {}=`rlocation {}`".format(name, rlocation))
 
+    after_script = ctx.attr.after_script
     robot_command = " ".join(robot_command_parts)
     if "allowed_to_fail" in ctx.attr.tags:
-        command = _get_allowed_to_fail_wrapper(robot_command)
+        command = _get_allowed_to_fail_wrapper(robot_command, after_script)
     else:
-        command = robot_command
+        command = _run_command(robot_command, after_script)
 
     depfiles += ctx.files.variables_with_label
 
@@ -156,7 +166,6 @@ def _renode_test_impl(ctx):
         pythonpath,
         depsets,
         depfiles,
-        ctx.attr.after_script,
         vars,
     )]
 
