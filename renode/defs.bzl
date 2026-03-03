@@ -34,34 +34,31 @@ source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/
 # --- end runfiles.bash initialization v3 ---
 """
 
-def _get_allowed_to_fail_wrapper(robot_command, after_script):
-    return """
+def _run_command(robot_command, env_vars, after_script, allowed_to_fail):
+    vars = "\n".join(env_vars)
+    command = """
+{vars}
 set +e
 {command}
 RESULT=$?
-{after}
+{after_script}
+""".format(command=robot_command, after_script="\n".join(after_script), vars=vars)
+    if allowed_to_fail:
+        command += """
 if [ $RESULT -ne 0 ]; then
     echo "Test failed but treating as success due to allowed_to_fail tag"
 fi
-exit 0
-""".format(command=robot_command, after="\n".join(after_script))
+"""
+    else:
+        command += "\nexit $RESULT\n"
+    return command
 
-def _run_command(robot_command, after_script):
-    return """
-set +e
-{command}
-RESULT=$?
-{after}
-exit $RESULT
-""".format(command=robot_command, after="\n".join(after_script))
-
-def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prepend, depsets, depfiles, vars):
+def _command_using_python_executable(ctx, command, path_prepend, pythonpath_prepend, depsets, depfiles):
     script_parts = [
         _prepend_path_env("PATH", path_prepend),
         _prepend_path_env("PYTHONPATH", pythonpath_prepend),
         "export HOME=$TEST_TMPDIR",
         _get_runfiles_init(),
-        "\n".join(vars),
         command,
     ]
     wrapper = ctx.actions.declare_file(ctx.label.name + "_wrapper.sh")
@@ -135,7 +132,7 @@ def _renode_test_impl(ctx):
     robot_command_parts.append(rlocation)
     robot_command_parts += ctx.attr.additional_arguments
 
-    vars = []
+    env_vars = []
     for (name, rlocation) in _parse_file_variables_with_label(
         ctx,
         depsets,
@@ -143,14 +140,12 @@ def _renode_test_impl(ctx):
     ):
         robot_command_parts.append("--variable")
         robot_command_parts.append("{}:`rlocation {}`".format(name, rlocation))
-        vars.append("export {}=`rlocation {}`".format(name, rlocation))
+        env_vars.append("export {}=`rlocation {}`".format(name, rlocation))
 
     after_script = ctx.attr.after_script
     robot_command = " ".join(robot_command_parts)
-    if "allowed_to_fail" in ctx.attr.tags:
-        command = _get_allowed_to_fail_wrapper(robot_command, after_script)
-    else:
-        command = _run_command(robot_command, after_script)
+    allowed_to_fail = "allowed_to_fail" in ctx.attr.tags
+    command = _run_command(robot_command, env_vars, after_script, allowed_to_fail)
 
     depfiles += ctx.files.variables_with_label
 
@@ -166,7 +161,6 @@ def _renode_test_impl(ctx):
         pythonpath,
         depsets,
         depfiles,
-        vars,
     )]
 
 renode_test = rule(
